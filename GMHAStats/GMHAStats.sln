@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GMHAStats", "GMHAStats\GMHAStats.csproj", "{C3FD41A5-7B7F-4457-B2D7-D4946374B70B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GMHAStandings", "GMHAStandings\GMHAStandings.csproj", "{291B0225-7D74-4F9C-B13E-E4C517FA1B66}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C3FD41A5-7B7F-4457-B2D7-D4946374B70B}.Debug|x86.ActiveCfg = Debug|x86
+		{C3FD41A5-7B7F-4457-B2D7-D4946374B70B}.Debug|x86.Build.0 = Debug|x86
+		{C3FD41A5-7B7F-4457-B2D7-D4946374B70B}.Release|x86.ActiveCfg = Release|x86
+		{C3FD41A5-7B7F-4457-B2D7-D4946374B70B}.Release|x86.Build.0 = Release|x86
+		{291B0225-7D74-4F9C-B13E-E4C517FA1B66}.Debug|x86.ActiveCfg = Debug|x86
+		{291B0225-7D74-4F9C-B13E-E4C517FA1B66}.Debug|x86.Build.0 = Debug|x86
+		{291B0225-7D74-4F9C-B13E-E4C517FA1B66}.Release|x86.ActiveCfg = Release|x86
+		{291B0225-7D74-4F9C-B13E-E4C517FA1B66}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal
