@@ -8,6 +8,54 @@
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-
+        <GridView HorizontalAlignment="Stretch" x:Name="gvPlayers" Margin="0,10,349,0" ItemClick="gvPlayers_ItemClick">
+            <GridView.Header>
+                <Grid HorizontalAlignment="Stretch" Width="1039" Height="32">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Player" />
+                    <TextBlock Grid.Column="1" Text="Team" />
+                    <TextBlock Grid.Column="2" Text="Goals" />
+                    <TextBlock Grid.Column="3" Text="Assists" />
+                    <TextBlock Grid.Column="4" Text="Penalty Minutes" />
+                    <TextBlock Grid.Column="5" Text="Points" />
+                </Grid>
+            </GridView.Header>
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Stretch" Width="Auto">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding Name}" />
+                        <TextBlock Grid.Column="1" Text="{Binding Team}" />
+                        <TextBlock Grid.Column="2" Text="{Binding Goals}" />
+                        <TextBlock Grid.Column="3" Text="{Binding Assists}" />
+                        <TextBlock Grid.Column="4" Text="{Binding PenaltyMinutes}" />
+                        <TextBlock Grid.Column="5" Text="{Binding Points}" />
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+        <TextBox x:Name="tbName" HorizontalAlignment="Left" Margin="10,726,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+        <TextBox x:Name="tbTeam" HorizontalAlignment="Left" Margin="245,726,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+        <TextBox x:Name="tbGoals" HorizontalAlignment="Left" Margin="480,726,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+        <TextBox x:Name="tbAssists" HorizontalAlignment="Left" Margin="715,726,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+        <TextBox x:Name="tbPenalties" HorizontalAlignment="Left" Margin="950,726,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+        <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="1185,721,0,0" VerticalAlignment="Top" Height="37" Width="171" Click="Button_Click_1"/>
+        <Button x:Name="btnOpen" Content="Open" HorizontalAlignment="Left" Margin="1276,10,0,0" VerticalAlignment="Top" Click="btnOpen_Click"/>
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="1278,53,0,0" VerticalAlignment="Top" Click="btnSave_Click"/>
+        <Button x:Name="btnExport" Content="Export" HorizontalAlignment="Left" Margin="1278,96,0,0" VerticalAlignment="Top" Click="btnExport_Click"/>
     </Grid>
 </Page>
