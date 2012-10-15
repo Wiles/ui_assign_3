@@ -21,10 +21,10 @@
             <Button x:Name="btnExport" Content="Export" HorizontalAlignment="Center" Width="100" Height="100" Margin="10,0,10,10" Click="btnExport_Click"/>
         </StackPanel>
 
+        <local:StatisticsPanel Grid.Column="1" x:Name="pnlStats" />
+        <local:StandingsPanel Grid.Column="1" Visibility="Collapsed" x:Name="pnlStandings" />
         <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
             <telerik:RadDatePicker></telerik:RadDatePicker>
         </Grid>
-        <local:StatisticsPanel Grid.Column="1" x:Name="pnlStats" />
-        <local:StandingsPanel Grid.Column="1" Visibility="Collapsed" x:Name="pnlStandings" />
     </Grid>
 </Page>
