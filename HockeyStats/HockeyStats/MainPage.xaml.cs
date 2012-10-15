@@ -25,13 +25,10 @@ namespace HockeyStats
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        ObservableCollection<Player> Players { get; set; }
 
         public MainPage()
         {
             this.InitializeComponent();
-            this.Players = new ObservableCollection<Player>();
-            gvPlayers.ItemsSource = this.Players;
         }
 
         /// <summary>
@@ -42,108 +39,7 @@ namespace HockeyStats
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
         }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            bool error = false;
-            int goals;
-            int assists;
-            int penalty;
-
-            if (string.IsNullOrEmpty(tbName.Text))
-            {
-                // make shit red
-                error = true;
-            }
-
-            if (string.IsNullOrEmpty(tbTeam.Text))
-            {
-                // make shit red
-                error = true;
-            }
-
-            if (!Int32.TryParse(tbGoals.Text, out goals))
-            {
-                // red shit everywhere
-                error = true;
-            }
-
-            if (!Int32.TryParse(tbAssists.Text, out assists))
-            {
-                // red shit everywhere
-                error = true;
-            }
-
-            if (!Int32.TryParse(tbPenalties.Text, out penalty))
-            {
-                // red shit everywhere
-                error = true;
-            }
-
-            if (error) return;
-
-            Player p = new Player(tbName.Text, tbTeam.Text, goals, assists, penalty);
-            tbName.Text = String.Empty;
-            tbTeam.Text = String.Empty;
-            tbGoals.Text = String.Empty;
-            tbAssists.Text = String.Empty;
-            tbPenalties.Text = String.Empty;
-            
-            this.Players.Add(p);
-        }
-
-        private class Player
-        {
-            [CsvColumn(0)]
-            public String Name { get; set; }
-
-            [CsvColumn(1)]
-            public String Team { get; set; }
-
-            [CsvColumn(2)]
-            public Int32 Goals { get; set; }
-
-            [CsvColumn(3)]
-            public Int32 Assists { get; set; }
-
-            [CsvColumn(4)]
-            public Int32 PenaltyMinutes { get; set; }
-
-            public int Points
-            {
-                get
-                {
-                    return this.Goals + this.Assists;
-                }
-            }
-
-            public Player()
-            {
-            }
-
-            public Player(String name, String team, Int32 goals, Int32 assists, Int32 penaltyMinutes)
-            {
-                this.Name = name;
-                this.Team = team;
-                this.Goals = goals;
-                this.Assists = assists;
-                this.PenaltyMinutes = penaltyMinutes;
-            }
-
-            public string ToHtmlRow()
-            {
-                return String.Format(
-@"<tr>
-<td>{0}</td>
-<td>{1}</td>
-<td style=""text-align: right"">{2}</td>
-<td style=""text-align: right"">{3}</td>
-<td style=""text-align: right"">{5}</td>
-<td style=""text-align: right"">{4}</td>
-</tr>", Name, Team, Goals, Assists, PenaltyMinutes, Points);
-            }
-        }
-
+        
         async private void btnOpen_Click(object sender, RoutedEventArgs e)
         {
             var openPicker = new Windows.Storage.Pickers.FileOpenPicker();
@@ -156,10 +52,10 @@ namespace HockeyStats
                 CsvSerializer csv = new CsvSerializer();
                 StreamReader sr = new StreamReader(thing.AsStreamForRead());
                 var foo = csv.Deserialize<Player>(sr.ReadToEnd());
-                Players.Clear();
+                pnlStats.Players.Clear();
                 foreach (Player p in foo)
                 {
-                    Players.Add(p);
+                    pnlStats.Players.Add(p);
                 }
             }
             else
@@ -182,7 +78,7 @@ namespace HockeyStats
                 using (StreamWriter sw = new StreamWriter(thing.AsOutputStream().AsStreamForWrite()))
                 {
                     CsvSerializer csv = new CsvSerializer();
-                    sw.Write(csv.Serialize(Players));
+                    sw.Write(csv.Serialize(pnlStats.Players));
                 }
             }
             else
@@ -216,7 +112,7 @@ namespace HockeyStats
 <tbody>
 <tr><th><span><span><b>Regular Season Individual Stats</b></span></span></th></tr><tr style=""background-color:#D49E09""><th style=""width: 200px"">Name</th><th style=""width: 80px"">Team</th><th style=""text-align: right; width: 40px"">G</th><th style=""text-align: right; width: 40px"">A</th><th style=""text-align: right; width: 40px"">Pts</th><th style=""text-align: right; width: 40px"">PM</th></tr>
 ");
-                    foreach(var p in Players)
+                    foreach (var p in pnlStats.Players)
                     {
                         sb.AppendLine(p.ToHtmlRow());
                     }
@@ -233,6 +129,18 @@ namespace HockeyStats
             }
             
 
+        }
+
+        private void btnStats_Click_1(object sender, RoutedEventArgs e)
+        {
+            pnlStandings.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            pnlStats.Visibility = Windows.UI.Xaml.Visibility.Visible;
+        }
+
+        private void btnStandings_Click_1(object sender, RoutedEventArgs e)
+        {
+            pnlStats.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            pnlStandings.Visibility = Windows.UI.Xaml.Visibility.Visible;
         }
     }
 }
