@@ -13,6 +13,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -64,11 +65,17 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <TextBox x:Name="tbName" Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
-        <TextBox x:Name="tbTeam" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
-        <TextBox x:Name="tbGoals" Grid.Row="2" Grid.Column="2" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
-        <TextBox x:Name="tbAssists" Grid.Row="2" Grid.Column="3" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
-        <TextBox x:Name="tbPenalties" Grid.Row="2" Grid.Column="4" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
-        <Button x:Name="btnAdd" Content="Add" Grid.Row="2" Grid.Column="5" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" Click="btnAdd_Click_1"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="5,5,5,5" FontSize="18" HorizontalAlignment="Stretch" Text="Total:"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" TextAlignment="Center" Margin="5,5,5,5" FontSize="18" HorizontalAlignment="Stretch" Text="0" x:Name="lblGoals" />
+        <TextBlock Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" TextAlignment="Center" Margin="5,5,5,5" FontSize="18" HorizontalAlignment="Stretch" Text="0" x:Name="lblAssists" />
+        <TextBlock Grid.Row="2" Grid.Column="4" VerticalAlignment="Center" TextAlignment="Center" Margin="5,5,5,5" FontSize="18" HorizontalAlignment="Stretch" Text="0" x:Name="lblPenalty" />
+        <TextBlock Grid.Row="2" Grid.Column="5" VerticalAlignment="Center" TextAlignment="Center" Margin="5,5,5,5" FontSize="18" HorizontalAlignment="Stretch" Text="0" x:Name="lblPoints" />
+        
+        <TextBox x:Name="tbName" Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
+        <TextBox x:Name="tbTeam" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
+        <TextBox x:Name="tbGoals" Grid.Row="3" Grid.Column="2" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
+        <TextBox x:Name="tbAssists" Grid.Row="3" Grid.Column="3" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
+        <TextBox x:Name="tbPenalties" Grid.Row="3" Grid.Column="4" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
+        <Button x:Name="btnAdd" Content="Add" Grid.Row="3" Grid.Column="5" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" Click="btnAdd_Click_1"/>
     </Grid>
 </UserControl>

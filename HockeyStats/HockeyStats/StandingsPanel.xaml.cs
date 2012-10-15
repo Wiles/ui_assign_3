@@ -22,5 +22,7 @@ namespace HockeyStats
         {
             this.InitializeComponent();
         }
+
+        public DateTime GameDate { get; set; }
     }
 }

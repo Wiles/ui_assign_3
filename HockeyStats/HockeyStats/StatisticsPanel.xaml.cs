@@ -24,6 +24,26 @@ namespace HockeyStats
             this.InitializeComponent();
             this.Players = new ObservableCollection<Player>();
             gvPlayers.ItemsSource = this.Players;
+            this.Players.CollectionChanged += (s, e) =>
+                {
+                    var goals = 0;
+                    var assists = 0;
+                    var penalty = 0;
+                    var points = 0;
+
+                    foreach (var p in this.Players)
+                    {
+                        goals += p.Goals;
+                        assists += p.Assists;
+                        penalty += p.PenaltyMinutes;
+                        points += p.Points;
+                    }
+
+                    lblGoals.Text = goals.ToString();
+                    lblAssists.Text = assists.ToString();
+                    lblPenalty.Text = penalty.ToString();
+                    lblPoints.Text = points.ToString();
+                };
         }
 
         public ObservableCollection<Player> Players { get; private set; }
