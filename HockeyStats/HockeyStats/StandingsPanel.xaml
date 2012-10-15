@@ -5,9 +5,6 @@
     xmlns:local="using:HockeyStats"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:telerikDateInput="using:Telerik.UI.Xaml.Controls.Input.DateTimePickers"
-    xmlns:telerikInput="using:Telerik.UI.Xaml.Controls.Input"
-    xmlns:telerikCore="using:Telerik.Core"
     mc:Ignorable="d"
     d:DesignHeight="600"
     d:DesignWidth="800">
