@@ -5,6 +5,7 @@
     xmlns:local="using:HockeyStats"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerik="using:Telerik.UI.Xaml.Controls.Input"
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
@@ -19,6 +20,10 @@
             <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Center" Width="100" Height="100" Margin="10,0,10,10" Click="btnSave_Click"/>
             <Button x:Name="btnExport" Content="Export" HorizontalAlignment="Center" Width="100" Height="100" Margin="10,0,10,10" Click="btnExport_Click"/>
         </StackPanel>
+
+        <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+            <telerik:RadDatePicker></telerik:RadDatePicker>
+        </Grid>
         <local:StatisticsPanel Grid.Column="1" x:Name="pnlStats" />
         <local:StandingsPanel Grid.Column="1" Visibility="Collapsed" x:Name="pnlStandings" />
     </Grid>

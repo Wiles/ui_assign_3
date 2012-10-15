@@ -101,6 +101,9 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <SDKReference Include="Telerik.UI.Xaml, Version=2012.1.0919">
+      <Name>RadControls for Metro</Name>
+    </SDKReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
