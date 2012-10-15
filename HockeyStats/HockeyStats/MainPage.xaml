@@ -9,17 +9,19 @@
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
-            <Button x:Name="btnStats" Content="Statistics" HorizontalAlignment="Center" Width="100" Height="100" Margin="10,10,10,10" Click="btnStats_Click_1"/>
-            <Button x:Name="btnStandings" Content="Standings" HorizontalAlignment="Center" Width="100" Height="100" Margin="10,0,10,10" Click="btnStandings_Click_1"/>
-            <Button x:Name="btnOpen" Content="Open" HorizontalAlignment="Center" Width="100" Height="100" Margin="10,0,10,10" Click="btnOpen_Click"/>
-            <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Center" Width="100" Height="100" Margin="10,0,10,10" Click="btnSave_Click"/>
-            <Button x:Name="btnExport" Content="Export" HorizontalAlignment="Center" Width="100" Height="100" Margin="10,0,10,10" Click="btnExport_Click"/>
+            <Button x:Name="btnStats" Content="Statistics" HorizontalAlignment="Center" Width="100" Height="100" Margin="5,5,5,5" Click="btnStats_Click_1"/>
+            <Button x:Name="btnStandings" Content="Standings" HorizontalAlignment="Center" Width="100" Height="100" Margin="5,0,5,5" Click="btnStandings_Click_1"/>
+            <Rectangle HorizontalAlignment="Center" Width="100" Height="100" />
+            <Button x:Name="btnOpen" Content="Open" HorizontalAlignment="Center" Width="100" Height="100" Margin="5,0,5,5" Click="btnOpen_Click"/>
+            <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Center" Width="100" Height="100" Margin="5,0,5,5" Click="btnSave_Click"/>
+            <Button x:Name="btnExport" Content="Export" HorizontalAlignment="Center" Width="100" Height="100" Margin="5,0,5,5" Click="btnExport_Click"/>
+            <Button x:Name="btnNews" Content="News Text" HorizontalAlignment="Center" Width="100" Height="100" Margin="5,0,5,5" Click="btnNews_Click_1" />
         </StackPanel>
-        <local:StatisticsPanel Grid.Column="1" x:Name="pnlStats" />
-        <local:StandingsPanel Grid.Column="1" Visibility="Collapsed" x:Name="pnlStandings" />
+        <local:StatisticsPanel Grid.Column="1" x:Name="pnlStats" Margin="12,12,12,12" />
+        <local:StandingsPanel Grid.Column="1" Visibility="Collapsed" x:Name="pnlStandings" Margin="12,12,12,12" />
     </Grid>
 </Page>

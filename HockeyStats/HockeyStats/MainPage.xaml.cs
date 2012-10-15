@@ -127,20 +127,25 @@ namespace HockeyStats
                 //TODO make this not crappy.
                 //                throw new Exception();
             }
-            
-
         }
 
         private void btnStats_Click_1(object sender, RoutedEventArgs e)
         {
             pnlStandings.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             pnlStats.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            btnNews.Visibility = Windows.UI.Xaml.Visibility.Visible;
         }
 
         private void btnStandings_Click_1(object sender, RoutedEventArgs e)
         {
             pnlStats.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             pnlStandings.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            btnNews.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+        }
+
+        private void btnNews_Click_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

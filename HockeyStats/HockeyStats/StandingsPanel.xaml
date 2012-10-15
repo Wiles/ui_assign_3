@@ -5,6 +5,9 @@
     xmlns:local="using:HockeyStats"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerikDateInput="using:Telerik.UI.Xaml.Controls.Input.DateTimePickers"
+    xmlns:telerikInput="using:Telerik.UI.Xaml.Controls.Input"
+    xmlns:telerikCore="using:Telerik.Core"
     mc:Ignorable="d"
     d:DesignHeight="600"
     d:DesignWidth="800">
@@ -21,12 +24,20 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="Team" />
-        <TextBlock Grid.Column="1" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="Colour" />
-        <TextBlock Grid.Column="2" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="G" />
-        <TextBlock Grid.Column="3" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="W" />
-        <TextBlock Grid.Column="4" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="..." />
+        <TextBlock Grid.Column="1" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="G" />
+        <TextBlock Grid.Column="2" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="W" />
+        <TextBlock Grid.Column="3" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="L" />
+        <TextBlock Grid.Column="4" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="T" />
+        <TextBlock Grid.Column="5" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="PT" />
+        <TextBlock Grid.Column="6" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="GF" />
+        <TextBlock Grid.Column="7" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="GA" />
+        <TextBlock Grid.Column="8" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="Diff" />
         <ListView Grid.Row="1" Grid.ColumnSpan="6" HorizontalAlignment="Stretch" x:Name="gvPlayers">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -58,8 +69,11 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <TextBox x:Name="tbName" Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
-        <TextBox x:Name="tbTeam" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
-        <Button x:Name="btnAdd" Content="Add" Grid.Row="2" Grid.Column="5" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
+        <TextBox x:Name="tbDate" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
+        <ComboBox x:Name="cbTeam1" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" />
+        <TextBox x:Name="tbPoints1" Grid.Row="2" Grid.Column="4" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" />
+        <ComboBox x:Name="cbTeam2" Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" />
+        <TextBox x:Name="tbPoints2" Grid.Row="2" Grid.Column="7" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" />
+        <Button x:Name="btnAdd" Content="Add" Grid.Row="2" Grid.Column="8" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
     </Grid>
 </UserControl>
