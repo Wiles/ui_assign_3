@@ -147,5 +147,10 @@ namespace HockeyStats
         {
 
         }
+
+        private void btnStats_SizeChanged_1(object sender, SizeChangedEventArgs e)
+        {
+
+        }
     }
 }

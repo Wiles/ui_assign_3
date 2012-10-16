@@ -5,7 +5,6 @@
     xmlns:local="using:HockeyStats"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:telerik="using:Telerik.UI.Xaml.Controls.Input"
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
@@ -13,20 +12,23 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-            <Button x:Name="btnStats" Content="Statistics" HorizontalAlignment="Center" Width="100" Height="100" Margin="5,5,5,5" Click="btnStats_Click_1"/>
-            <Button x:Name="btnStandings" Content="Standings" HorizontalAlignment="Center" Width="100" Height="100" Margin="5,0,5,5" Click="btnStandings_Click_1"/>
-            <Rectangle HorizontalAlignment="Center" Width="100" Height="100" />
-            <Button x:Name="btnOpen" Content="Open" HorizontalAlignment="Center" Width="100" Height="100" Margin="5,0,5,5" Click="btnOpen_Click"/>
-            <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Center" Width="100" Height="100" Margin="5,0,5,5" Click="btnSave_Click"/>
-            <Button x:Name="btnExport" Content="Export" HorizontalAlignment="Center" Width="100" Height="100" Margin="5,0,5,5" Click="btnExport_Click"/>
-            <Button x:Name="btnNews" Content="News Text" HorizontalAlignment="Center" Width="100" Height="100" Margin="5,0,5,5" Click="btnNews_Click_1" />
-        </StackPanel>
+        <Grid Grid.Column="0" Margin="0,5,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" x:Name="btnStats" Content="Statistics" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0,5,5" Click="btnStats_Click_1" Width="{Binding ElementName=btnStats, Path=ActualHeight}"/>
+            <Button Grid.Row="1" x:Name="btnStandings" Content="Standings" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0,5,5" Click="btnStandings_Click_1" Width="{Binding ElementName=btnStandings, Path=ActualHeight}"/>
+            <Button Grid.Row="2" x:Name="btnOpen" Content="Open" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0,5,5" Click="btnOpen_Click" Width="{Binding ElementName=btnOpen, Path=ActualHeight}"/>
+            <Button Grid.Row="3" x:Name="btnSave" Content="Save" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0,5,5" Click="btnSave_Click" Width="{Binding ElementName=btnSave, Path=ActualHeight}"/>
+            <Button Grid.Row="4" x:Name="btnExport" Content="Export" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0,5,5" Click="btnExport_Click" Width="{Binding ElementName=btnExport, Path=ActualHeight}"/>
+            <Button Grid.Row="5" x:Name="btnNews" Content="News Text" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0,5,5" Click="btnNews_Click_1"  Width="{Binding ElementName=btnNews, Path=ActualHeight}"/>
+        </Grid>
         <local:StatisticsPanel Grid.Column="1" x:Name="pnlStats" Margin="12,12,12,12" />
         <local:StandingsPanel Grid.Column="1" Visibility="Collapsed" x:Name="pnlStandings" Margin="12,12,12,12" />
-
-        <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-            <telerik:RadDatePicker></telerik:RadDatePicker>
-        </Grid>
     </Grid>
 </Page>
