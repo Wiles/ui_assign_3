@@ -27,16 +27,13 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="Home Team" />
-        <TextBlock Grid.Column="1" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="G" />
-        <TextBlock Grid.Column="2" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="W" />
-        <TextBlock Grid.Column="3" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="L" />
-        <TextBlock Grid.Column="4" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="T" />
-        <TextBlock Grid.Column="5" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="PT" />
-        <TextBlock Grid.Column="6" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="GF" />
-        <TextBlock Grid.Column="7" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="GA" />
-        <TextBlock Grid.Column="8" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="Diff" />
-        <ListView Grid.Row="1" Grid.ColumnSpan="9" HorizontalAlignment="Stretch" x:Name="gvStandings">
+        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="Game Date" />
+        <TextBlock Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="Home Team" />
+        <TextBlock Grid.Column="4" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="Points" />
+        <TextBlock Grid.Column="5" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="Visiting Team" />
+        <TextBlock Grid.Column="7" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="Points" />
+        <TextBlock Grid.Column="8" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="Winning Team" />
+        <ListView Grid.Row="1" Grid.ColumnSpan="9" HorizontalAlignment="Stretch" x:Name="gvGames">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Template">
@@ -64,15 +61,12 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" TextAlignment="Center" Text="{Binding Name}" />
-                        <TextBlock Grid.Column="1" TextAlignment="Center" Text="{Binding Games}" />
-                        <TextBlock Grid.Column="2" TextAlignment="Center" Text="{Binding Wins}" />
-                        <TextBlock Grid.Column="3" TextAlignment="Center" Text="{Binding Losses}" />
-                        <TextBlock Grid.Column="4" TextAlignment="Center" Text="{Binding Ties}" />
-                        <TextBlock Grid.Column="5" TextAlignment="Center" Text="{Binding Points}" />
-                        <TextBlock Grid.Column="6" TextAlignment="Center" Text="{Binding GoalsScored}" />
-                        <TextBlock Grid.Column="7" TextAlignment="Center" Text="{Binding GoalsAllowed}" />
-                        <TextBlock Grid.Column="8" TextAlignment="Center" Text="{Binding DiffString}" />
+                        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" TextAlignment="Center" Text="{Binding Date}"/>
+                        <TextBlock Grid.Column="2" Grid.ColumnSpan="2" TextAlignment="Center" Text="{Binding Home}" />
+                        <TextBlock Grid.Column="4" TextAlignment="Center" Text="{Binding HomeScore}" />
+                        <TextBlock Grid.Column="5" Grid.ColumnSpan="2" TextAlignment="Center" Text="{Binding Visitor}" />
+                        <TextBlock Grid.Column="7" TextAlignment="Center" Text="{Binding VisitorScore}" />
+                        <TextBlock Grid.Column="8" Grid.ColumnSpan="2" TextAlignment="Center" Text="{Binding WinningTeam}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

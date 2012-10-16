@@ -37,6 +37,8 @@ namespace HockeyStats
             this.pnlStats.Teams = this.Teams;
             this.pnlStandings.Games = this.Games;
             this.pnlStandings.Teams = this.Teams;
+            this.pnlGames.Teams = this.Teams;
+            this.pnlGames.Games = this.Games;
         }
 
         private ObservableCollection<Player> Players { get; set; }
@@ -127,9 +129,10 @@ namespace HockeyStats
                         teamsById[game.Visitor].Ties += 1;
                     }
                 }
+
+                pnlStandings.Teams.AddRange(teams);
                 pnlStats.Players.AddRange(players);
                 pnlStandings.Games.AddRange(games);
-                pnlStandings.Teams.AddRange(teams);
             }
             pnlStats.loadLists();
         }
