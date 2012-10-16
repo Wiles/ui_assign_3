@@ -50,24 +50,22 @@ namespace HockeyStats
                 gvStandings.ItemsSource = teams;
             }
         }
-        
+
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            var game = new Game();
-
-            var error = false;
-
-            if (!dtpGame.Value.HasValue)
-            {
-                error = true;
-            }
-
-            if (error)
+            if (string.IsNullOrWhiteSpace(tbName.Text) || string.IsNullOrWhiteSpace(tbColor.Text))
             {
                 return;
             }
 
-            game.Date = dtpGame.Value.Value;
+            var t = new Team();
+            t.Name = tbName.Text;
+            t.color = tbColor.Text;
+
+            this.Teams.Add(t);
+
+            tbName.Text = string.Empty;
+            tbColor.Text = string.Empty;
         }
     }
 }
