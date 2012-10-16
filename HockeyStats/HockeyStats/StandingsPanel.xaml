@@ -76,7 +76,7 @@
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>
+        </ListView> 
         <telerik:RadDatePicker x:Name="dtpGame" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="5,1,5,5" HorizontalAlignment="Stretch" />
         <ComboBox x:Name="cbTeam1" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" />
         <TextBox x:Name="tbPoints1" Grid.Row="2" Grid.Column="4" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" />
