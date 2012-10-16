@@ -181,7 +181,7 @@ namespace HockeyStats
             var b = false;
             cbTeam.SelectedIndex = -1;
 
-            foreach (var team in Players.Select(p => p.Team).Distinct())
+            foreach (var team in teams.Select(p => p.Color).Distinct())
             {
                 cbTeam.Items.Add(team);
             }
