@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HockeyStats
 {
-    class Team
+    public class Team
     {
         public int Number { get; set; }
 

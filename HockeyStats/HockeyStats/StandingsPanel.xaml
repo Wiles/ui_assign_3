@@ -67,11 +67,11 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <telerik:RadDatePicker Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="5,1,5,5" HorizontalAlignment="Stretch" />
+        <telerik:RadDatePicker x:Name="dtpGame" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="5,1,5,5" HorizontalAlignment="Stretch" />
         <ComboBox x:Name="cbTeam1" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" />
         <TextBox x:Name="tbPoints1" Grid.Row="2" Grid.Column="4" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" />
         <ComboBox x:Name="cbTeam2" Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" />
         <TextBox x:Name="tbPoints2" Grid.Row="2" Grid.Column="7" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" />
-        <Button x:Name="btnAdd" Content="Add" Grid.Row="2" Grid.Column="8" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
+        <Button x:Name="btnAdd" Content="Add" Grid.Row="2" Grid.Column="8" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" Click="btnAdd_Click"/>
     </Grid>
 </UserControl>

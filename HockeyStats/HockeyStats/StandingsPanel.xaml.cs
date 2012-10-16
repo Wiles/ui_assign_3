@@ -22,8 +22,34 @@ namespace HockeyStats
         public StandingsPanel()
         {
             this.InitializeComponent();
+            this.Games = new ObservableCollection<Game>();
+            this.Teams = new ObservableCollection<Team>();
+            this.Teams.CollectionChanged += (s, e) =>
+                {
+                };
         }
 
-        ObservableCollection<object> Games { get; set; }
+        public ObservableCollection<Game> Games { get; private set; }
+
+        public ObservableCollection<Team> Teams { get; private set; }
+        
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            var game = new Game();
+
+            var error = false;
+
+            if (!dtpGame.Value.HasValue)
+            {
+                error = true;
+            }
+
+            if (error)
+            {
+                return;
+            }
+
+            game.Date = dtpGame.Value.Value;
+        }
     }
 }

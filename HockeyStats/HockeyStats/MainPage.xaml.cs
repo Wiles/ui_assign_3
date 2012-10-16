@@ -44,26 +44,63 @@ namespace HockeyStats
         
         async private void btnOpen_Click(object sender, RoutedEventArgs e)
         {
-            var openPicker = new Windows.Storage.Pickers.FileOpenPicker();
-            openPicker.FileTypeFilter.Add(".csv");
-
-            var file = await openPicker.PickSingleFileAsync();
-            if (file != null)
+            if (pnlStats.Visibility == Windows.UI.Xaml.Visibility.Visible)
             {
-                var thing = await file.OpenSequentialReadAsync();
-                CsvSerializer csv = new CsvSerializer();
-                StreamReader sr = new StreamReader(thing.AsStreamForRead());
-                var foo = csv.Deserialize<Player>(sr.ReadToEnd());
-                pnlStats.Players.Clear();
-                foreach (Player p in foo)
+                var openPicker = new Windows.Storage.Pickers.FileOpenPicker();
+                openPicker.FileTypeFilter.Add(".csv");
+
+                var file = await openPicker.PickSingleFileAsync();
+                if (file != null)
                 {
-                    pnlStats.Players.Add(p);
+                    var thing = await file.OpenSequentialReadAsync();
+                    CsvSerializer csv = new CsvSerializer();
+                    using (StreamReader sr = new StreamReader(thing.AsStreamForRead()))
+                    {
+                        var foo = csv.Deserialize<Player>(sr.ReadToEnd());
+                        pnlStats.Players.Clear();
+                        pnlStats.Players.AddRange(foo);
+                    }
                 }
             }
             else
             {
-                //TODO make this not crappy.
-                //throw new Exception();
+                var openPicker = new Windows.Storage.Pickers.FileOpenPicker();
+                openPicker.FileTypeFilter.Add(".csv");
+
+                var file = await openPicker.PickSingleFileAsync();
+                if (file != null)
+                {
+                    var thing = await file.OpenSequentialReadAsync();
+
+                    var gameText = string.Empty;
+                    var teamText = string.Empty;
+
+                    using (StreamReader sr = new StreamReader(thing.AsStreamForRead()))
+                    {
+                        string line;
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            if (line.Length > 0)
+                            {
+                                if (line[0] == 'T')
+                                {
+                                    teamText += line + Environment.NewLine;
+                                }
+                                else if (line[0] == 'G')
+                                {
+                                    gameText += line + Environment.NewLine;
+                                }
+                            }
+                        }
+                    }
+
+                    CsvSerializer csv = new CsvSerializer();
+                    var games = csv.Deserialize<Game>(gameText);
+                    var teams = csv.Deserialize<Team>(teamText);
+
+                    pnlStandings.Games.AddRange(games);
+                    pnlStandings.Teams.AddRange(teams);
+                }
             }
         }
 
@@ -89,12 +126,6 @@ namespace HockeyStats
 //                throw new Exception();
             }
             
-        }
-
-        private void gvPlayers_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var a = e.ClickedItem;
-
         }
 
         async private void btnExport_Click(object sender, RoutedEventArgs e)
@@ -224,11 +255,6 @@ namespace HockeyStats
 
             var dialog = new MessageDialog(message);
             await dialog.ShowAsync();
-        }
-
-        private void btnStats_SizeChanged_1(object sender, SizeChangedEventArgs e)
-        {
-
         }
     }
 }

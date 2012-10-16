@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HockeyStats
 {
-    class Game
+    public class Game
     {
         public DateTime Date { get; set; }
 
