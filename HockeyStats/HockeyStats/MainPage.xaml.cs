@@ -145,7 +145,67 @@ namespace HockeyStats
 
         private void btnNews_Click_1(object sender, RoutedEventArgs e)
         {
+            Dictionary<string, string> dGoals = new Dictionary<string, string>();
+            Dictionary<string, string> dAssists = new Dictionary<string, string>();
 
+            foreach (Player p in pnlStats.Players)
+            {
+                if (p.SessionGoals > 0)
+                {
+                    String goals = String.Empty;
+                    if(dGoals.ContainsKey(p.Team))
+                    {
+                        goals = dGoals[p.Team] + ",";
+                    }
+
+                    goals += p.Name;
+
+                    if(p.SessionGoals > 1){
+                        goals += String.Format(@"({0})", p.SessionGoals);
+                    }
+
+                    //dGoals.Add(p.Team, goals);
+                    dGoals[p.Team] = goals;
+                }
+
+                if (p.SessionAssists > 0)
+                {
+                    String assists = String.Empty;
+                    if (dAssists.ContainsKey(p.Team))
+                    {
+                        assists = dAssists[p.Team] + ",";
+                    }
+
+                    assists += p.Name;
+
+                    if (p.SessionAssists > 1)
+                    {
+                        assists += String.Format(@"({0})", p.SessionAssists);
+                    }
+
+                    //dGoals.Add(p.Team, assists);
+                    dAssists[p.Team] = assists;
+                }
+            }
+            List<string> keys = new List<string>();
+            keys.AddRange(dGoals.Keys);
+            keys.AddRange(dAssists.Keys);
+            keys = keys.Distinct().ToList();
+            String newsText = String.Empty;
+            foreach (String teamName in keys)
+            {
+                newsText += String.Format(@"Team: {0}{1}", teamName, Environment.NewLine);
+                if(dGoals.ContainsKey(teamName))
+                {
+                    newsText += String.Format(@"Goals: {0}{1}", dGoals[teamName], Environment.NewLine);
+                }
+
+                if (dAssists.ContainsKey(teamName))
+                {
+                    newsText += String.Format(@"Assists: {0}{1}", dAssists[teamName], Environment.NewLine);
+                }
+                newsText += String.Format(@"{0}", Environment.NewLine);
+            }
         }
 
         private void btnStats_SizeChanged_1(object sender, SizeChangedEventArgs e)

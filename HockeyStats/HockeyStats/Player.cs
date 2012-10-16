@@ -20,6 +20,12 @@ namespace HockeyStats
         [CsvColumn(3)]
         public Int32 Assists { get; set; }
 
+
+        public Int32 SessionGoals { get; set; }
+
+        public Int32 SessionAssists { get; set; }
+        public Int32 SessionPenaltyMinutes { get; set; }
+
         [CsvColumn(4)]
         public Int32 PenaltyMinutes { get; set; }
 
@@ -42,6 +48,27 @@ namespace HockeyStats
             this.Goals = goals;
             this.Assists = assists;
             this.PenaltyMinutes = penaltyMinutes;
+            this.SessionAssists = Assists;
+            this.SessionGoals = goals;
+            this.SessionPenaltyMinutes = penaltyMinutes;
+        }
+
+        public void AddGoals(Int32 Goals)
+        {
+            this.Goals += Goals;
+            this.SessionGoals += Goals;
+        }
+
+        public void AddAssists(Int32 Assists)
+        {
+            this.Assists += Assists;
+            this.SessionAssists += Assists;
+        }
+
+        public void AddPenaltyMinutes(Int32 PenaltyMinutes)
+        {
+            this.PenaltyMinutes += PenaltyMinutes;
+            this.SessionPenaltyMinutes += PenaltyMinutes;
         }
 
         public string ToHtmlRow()
