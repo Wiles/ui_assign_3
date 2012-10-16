@@ -84,11 +84,11 @@ namespace HockeyStats
                             {
                                 if (line[0] == 'T')
                                 {
-                                    teamText += line.Substring(2) + Environment.NewLine;
+                                    teamText += line + Environment.NewLine;
                                 }
                                 else if (line[0] == 'G')
                                 {
-                                    gameText += line.Substring(2) + Environment.NewLine;
+                                    gameText += line + Environment.NewLine;
                                 }
                             }
                         }
@@ -141,26 +141,53 @@ namespace HockeyStats
 
         async void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
-            savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            savePicker.FileTypeChoices.Add("Comma Separated Values", new List<string>() { ".csv" });
 
-            var file = await savePicker.PickSaveFileAsync();
-            if (file != null)
+            if (pnlStats.Visibility == Windows.UI.Xaml.Visibility.Visible)
             {
-                var thing = await file.OpenStreamForWriteAsync();
-                using (StreamWriter sw = new StreamWriter(thing.AsOutputStream().AsStreamForWrite()))
+                var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+                savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+                savePicker.FileTypeChoices.Add("Comma Separated Values", new List<string>() { ".csv" });
+
+                var file = await savePicker.PickSaveFileAsync();
+                if (file != null)
                 {
-                    CsvSerializer csv = new CsvSerializer();
-                    sw.Write(csv.Serialize(pnlStats.Players));
+                    var thing = await file.OpenStreamForWriteAsync();
+                    using (StreamWriter sw = new StreamWriter(thing.AsOutputStream().AsStreamForWrite()))
+                    {
+                        CsvSerializer csv = new CsvSerializer();
+                        sw.Write(csv.Serialize(pnlStats.Players));
+                    }
+                }
+                else
+                {
+                    //TODO make this not crappy.
+                    //                throw new Exception();
                 }
             }
             else
             {
-                //TODO make this not crappy.
-//                throw new Exception();
+                var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+                savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+                savePicker.FileTypeChoices.Add("Comma Separated Values", new List<string>() { ".csv" });
+
+                var file = await savePicker.PickSaveFileAsync();
+                if (file != null)
+                {
+                    var thing = await file.OpenStreamForWriteAsync();
+                    using (StreamWriter sw = new StreamWriter(thing.AsOutputStream().AsStreamForWrite()))
+                    {
+                        CsvSerializer csv = new CsvSerializer();
+                        sw.Write(csv.Serialize(pnlStandings.Teams));
+                        sw.Write(csv.Serialize(pnlStandings.Games));
+                    }
+                }
+                else
+                {
+                    //TODO make this not crappy.
+                    //                throw new Exception();
+                }
             }
-            
+
         }
 
         async private void btnExport_Click(object sender, RoutedEventArgs e)

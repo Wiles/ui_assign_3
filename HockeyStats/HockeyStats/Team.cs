@@ -12,12 +12,15 @@ namespace HockeyStats
     {
 
         [CsvColumn(0)]
-        public int Number { get; set; }
+        public string id { get; set; }
 
         [CsvColumn(1)]
-        public string Name { get; set; }
+        public int Number { get; set; }
 
         [CsvColumn(2)]
+        public string Name { get; set; }
+
+        [CsvColumn(3)]
         public string color { get; set; }
 
         public int Wins { get; set; }

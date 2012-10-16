@@ -8,23 +8,27 @@ namespace HockeyStats
 {
     public class Game
     {
+
         [CsvColumn(0)]
+        public string id { get; set; }
+
+        [CsvColumn(1)]
         public DateTime Date { get; set; }
 
 
-        [CsvColumn(1)]
+        [CsvColumn(2)]
         public int Visitor { get; set; }
 
 
-        [CsvColumn(3)]
+        [CsvColumn(4)]
         public int Home { get; set; }
 
 
-        [CsvColumn(2)]
+        [CsvColumn(3)]
         public int VisitorScore { get; set; }
 
 
-        [CsvColumn(4)]
+        [CsvColumn(5)]
         public int HomeScore { get; set; }
     }
 }
