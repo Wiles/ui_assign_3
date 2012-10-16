@@ -4,10 +4,12 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -143,7 +145,7 @@ namespace HockeyStats
             btnNews.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
-        private void btnNews_Click_1(object sender, RoutedEventArgs e)
+        async private void btnNews_Click_1(object sender, RoutedEventArgs e)
         {
             Dictionary<string, string> dGoals = new Dictionary<string, string>();
             Dictionary<string, string> dAssists = new Dictionary<string, string>();
@@ -185,11 +187,13 @@ namespace HockeyStats
                     dAssists[p.Team] = assists;
                 }
             }
+
             List<string> keys = new List<string>();
             keys.AddRange(dGoals.Keys);
             keys.AddRange(dAssists.Keys);
             keys = keys.Distinct().ToList();
             String newsText = String.Empty;
+
             foreach (String teamName in keys)
             {
                 newsText += String.Format(@"Team: {0}{1}", teamName, Environment.NewLine);
@@ -204,6 +208,12 @@ namespace HockeyStats
                 }
                 newsText += String.Format(@"{0}", Environment.NewLine);
             }
+
+            var data = new DataPackage();
+            data.SetText(newsText);
+            Clipboard.SetContent(data);
+            var message = new MessageDialog("The News Text has been copied to the clipboard.");
+            await message.ShowAsync();
         }
 
         private void btnStats_SizeChanged_1(object sender, SizeChangedEventArgs e)

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HockeyStats
 {
-    public class Player
+    public class Player : INotifyPropertyChanged
     {
         [CsvColumn(0)]
         public String Name { get; set; }
@@ -57,18 +59,21 @@ namespace HockeyStats
         {
             this.Goals += Goals;
             this.SessionGoals += Goals;
+            NotifyPropertyChanged("Goals");
         }
 
         public void AddAssists(Int32 Assists)
         {
             this.Assists += Assists;
             this.SessionAssists += Assists;
+            NotifyPropertyChanged("Assists");
         }
 
         public void AddPenaltyMinutes(Int32 PenaltyMinutes)
         {
             this.PenaltyMinutes += PenaltyMinutes;
             this.SessionPenaltyMinutes += PenaltyMinutes;
+            NotifyPropertyChanged("PenaltyMinutes");
         }
 
         public string ToHtmlRow()
@@ -82,6 +87,16 @@ namespace HockeyStats
 <td style=""text-align: right"">{5}</td>
 <td style=""text-align: right"">{4}</td>
 </tr>", Name, Team, Goals, Assists, PenaltyMinutes, Points);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

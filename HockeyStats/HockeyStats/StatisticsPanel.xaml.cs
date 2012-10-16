@@ -85,16 +85,32 @@ namespace HockeyStats
                 error = true;
             }
 
-            if (error) return;
+            if (error)
+            {
+                return;
+            }
 
-            Player p = new Player(tbName.Text, tbTeam.Text, goals, assists, penalty);
+            var player = Players.FirstOrDefault(p => p.Name.ToLower() == tbName.Text.ToLower()
+                    && p.Team.ToLower() == tbTeam.Text.ToLower());
+
+            if (player == null)
+            {
+                player = new Player(tbName.Text, tbTeam.Text, goals, assists, penalty);
+                this.Players.Add(player);
+            }
+            else
+            {
+                player.AddGoals(goals);
+                player.AddAssists(assists);
+                player.AddPenaltyMinutes(penalty);
+                gvPlayers.ItemsSource = Players;
+            }
+
             tbName.Text = String.Empty;
             tbTeam.Text = String.Empty;
             tbGoals.Text = String.Empty;
             tbAssists.Text = String.Empty;
             tbPenalties.Text = String.Empty;
-
-            this.Players.Add(p);
         }
     }
 }
