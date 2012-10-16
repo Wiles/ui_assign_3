@@ -57,6 +57,19 @@ namespace HockeyStats
                     };
             }
         }
+
+        private ObservableCollection<Team> teams { get; set; }
+        public ObservableCollection<Team> Teams
+        {
+            get
+            {
+                return teams;
+            }
+            set
+            {
+                teams = value;
+            }
+        }
         
         private void btnAdd_Click_1(object sender, RoutedEventArgs e)
         {

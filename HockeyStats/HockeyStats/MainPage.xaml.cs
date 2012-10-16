@@ -34,6 +34,7 @@ namespace HockeyStats
             this.Games = new ObservableCollection<Game>();
             this.Teams = new ObservableCollection<Team>();
             this.pnlStats.Players = this.Players;
+            this.pnlStats.Teams = this.Teams;
             this.pnlStandings.Games = this.Games;
             this.pnlStandings.Teams = this.Teams;
         }
