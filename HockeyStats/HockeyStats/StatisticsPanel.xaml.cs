@@ -219,10 +219,18 @@ namespace HockeyStats
                 tbName.Text = ((Player)gvPlayers.SelectedItem).Name;
                 tbTeam.Text = ((Player)gvPlayers.SelectedItem).Team;
             }
+
+            lbName.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            lbTeam.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private bool AutoCompleteCheck(string name, string search)
         {
+            if (name == search)
+            {
+                return false;
+            }
+
             var array = name.ToLower().Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var str in array)
@@ -231,6 +239,11 @@ namespace HockeyStats
                 {
                     return true;
                 }
+            }
+
+            if (name.ToLower().StartsWith(search.ToLower()))
+            {
+                return true;
             }
 
             return false;
