@@ -102,6 +102,7 @@ namespace HockeyStats
                     pnlStandings.Teams.AddRange(teams);
                 }
             }
+            pnlStats.loadLists();
         }
 
         async void btnSave_Click(object sender, RoutedEventArgs e)

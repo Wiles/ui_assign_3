@@ -71,11 +71,13 @@
         <TextBlock Grid.Row="2" Grid.Column="4" VerticalAlignment="Center" TextAlignment="Center" Margin="5,5,5,5" FontSize="18" HorizontalAlignment="Stretch" Text="0" x:Name="lblPenalty" />
         <TextBlock Grid.Row="2" Grid.Column="5" VerticalAlignment="Center" TextAlignment="Center" Margin="5,5,5,5" FontSize="18" HorizontalAlignment="Stretch" Text="0" x:Name="lblPoints" />
         
-        <TextBox x:Name="tbName" Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
-        <TextBox x:Name="tbTeam" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
+        <TextBox x:Name="tbName" Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" GotFocus="tbName_GotFocus" LostFocus="tbName_LostFocus" TextChanged="tbName_TextChanged"/>
+        <TextBox x:Name="tbTeam" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" LostFocus="tbTeam_LostFocus" GotFocus="tbTeam_GotFocus"/>
         <TextBox x:Name="tbGoals" Grid.Row="3" Grid.Column="2" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
         <TextBox x:Name="tbAssists" Grid.Row="3" Grid.Column="3" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
         <TextBox x:Name="tbPenalties" Grid.Row="3" Grid.Column="4" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
         <Button x:Name="btnAdd" Content="Add" Grid.Row="3" Grid.Column="5" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" Click="btnAdd_Click_1"/>
+        <ListBox x:Name="lbName" HorizontalAlignment="Left" Height="147" Margin="5,381,0,0" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top" Width="123" Visibility="Collapsed" SelectionChanged="lbName_SelectionChanged"/>
+        <ListBox x:Name="lbTeam" HorizontalAlignment="Left" Height="147" Margin="5,386,0,0" Grid.Row="1" Grid.RowSpan="3" VerticalAlignment="Top" Width="123" SelectionChanged="lbTeam_SelectionChanged" Grid.Column="1" Visibility="Collapsed"/>
     </Grid>
 </UserControl>
