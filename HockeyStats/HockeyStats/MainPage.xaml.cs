@@ -84,11 +84,11 @@ namespace HockeyStats
                             {
                                 if (line[0] == 'T')
                                 {
-                                    teamText += line + Environment.NewLine;
+                                    teamText += line.Substring(2) + Environment.NewLine;
                                 }
                                 else if (line[0] == 'G')
                                 {
-                                    gameText += line + Environment.NewLine;
+                                    gameText += line.Substring(2) + Environment.NewLine;
                                 }
                             }
                         }
@@ -97,6 +97,40 @@ namespace HockeyStats
                     CsvSerializer csv = new CsvSerializer();
                     var games = csv.Deserialize<Game>(gameText);
                     var teams = csv.Deserialize<Team>(teamText);
+
+
+
+                    Dictionary<int, Team> teamsById = new Dictionary<int, Team>();
+
+                    foreach(Team team in teams)
+                    {
+                        teamsById.Add(team.Number, team);
+                    }
+
+                    foreach(Game game in games)
+                    {
+                        teamsById[game.Home].GoalsScored += game.HomeScore;
+                        teamsById[game.Home].GoalsAllowed += game.VisitorScore;
+
+                        teamsById[game.Visitor].GoalsAllowed += game.HomeScore;
+                        teamsById[game.Visitor].GoalsScored += game.VisitorScore;
+
+                        if (game.HomeScore > game.VisitorScore)
+                        {
+                            teamsById[game.Home].Wins += 1;
+                            teamsById[game.Visitor].Losses += 1;
+                        }
+                        else if (game.VisitorScore > game.HomeScore)
+                        {
+                            teamsById[game.Home].Losses += 1;
+                            teamsById[game.Visitor].Wins += 1;
+                        }
+                        else
+                        {
+                            teamsById[game.Home].Ties += 1;
+                            teamsById[game.Visitor].Ties += 1;
+                        }
+                    }
 
                     pnlStandings.Games.AddRange(games);
                     pnlStandings.Teams.AddRange(teams);

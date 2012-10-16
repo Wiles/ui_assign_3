@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using System.Globalization;
 
 namespace HockeyStats
 {
@@ -84,6 +85,10 @@ namespace HockeyStats
                         else if (type == typeof(int))
                         {
                             kvp.Value.SetValue(entity, int.Parse(txt[kvp.Key]));
+                        }
+                        else if (type == typeof(DateTime))
+                        {
+                            kvp.Value.SetValue(entity, DateTime.ParseExact(txt[kvp.Key], "s", CultureInfo.InvariantCulture));
                         }
                         else
                         {

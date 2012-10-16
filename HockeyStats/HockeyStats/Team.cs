@@ -1,16 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HockeyStats
 {
-    public class Team
+    public class Team : INotifyPropertyChanged
     {
+
+        [CsvColumn(0)]
         public int Number { get; set; }
 
+        [CsvColumn(1)]
         public string Name { get; set; }
+
+        [CsvColumn(2)]
+        public string color { get; set; }
 
         public int Wins { get; set; }
 
@@ -23,6 +31,8 @@ namespace HockeyStats
         public int GoalsAllowed { get; set; }
 
         public int[] aRecord { get; set; }
+
+        public int Games { get { return Wins + Losses + Ties; } }
 
         public double AverageGoalsAllowedPerGame
         {
@@ -68,6 +78,16 @@ namespace HockeyStats
                 ret = (-1) * GoalsAllowed.CompareTo(t.GoalsAllowed);
 
             return ret;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

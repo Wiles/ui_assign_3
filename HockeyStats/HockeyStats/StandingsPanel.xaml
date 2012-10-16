@@ -36,14 +36,14 @@
         <TextBlock Grid.Column="6" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="GF" />
         <TextBlock Grid.Column="7" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="GA" />
         <TextBlock Grid.Column="8" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="Diff" />
-        <ListView Grid.Row="1" Grid.ColumnSpan="6" HorizontalAlignment="Stretch" x:Name="gvPlayers">
+        <ListView Grid.Row="1" Grid.ColumnSpan="6" HorizontalAlignment="Stretch" x:Name="gvStandings">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListViewItem">
                                 <Grid>
-                                    <ContentPresenter Content="{TemplateBinding Content}" />
+                                    <ContentPresenter Content="{TemplateBinding Name}" />
                                 </Grid>
                             </ControlTemplate>
                         </Setter.Value>
@@ -61,8 +61,18 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" TextAlignment="Center" Text="..." />
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" TextAlignment="Center" Text="{Binding Name}" />
+                        <TextBlock Grid.Column="1" HorizontalAlignment="Stretch" TextAlignment="Center" Text="{Binding Games}" />
+                        <TextBlock Grid.Column="2" HorizontalAlignment="Stretch" TextAlignment="Center" Text="{Binding Wins}" />
+                        <TextBlock Grid.Column="3" HorizontalAlignment="Stretch" TextAlignment="Center" Text="{Binding Losses}" />
+                        <TextBlock Grid.Column="4" HorizontalAlignment="Stretch" TextAlignment="Center" Text="{Binding Ties}" />
+                        <TextBlock Grid.Column="5" HorizontalAlignment="Stretch" TextAlignment="Center" Text="{Binding Points}" />
+                        <TextBlock Grid.Column="6" HorizontalAlignment="Stretch" TextAlignment="Center" Text="{Binding GoalsScored}" />
+                        <TextBlock Grid.Column="7" HorizontalAlignment="Stretch" TextAlignment="Center" Text="{Binding GoalsAllowed}" />
+                        <TextBlock Grid.Column="8" HorizontalAlignment="Stretch" TextAlignment="Center" Text="{Binding AverageGoalsScoredPerGame}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

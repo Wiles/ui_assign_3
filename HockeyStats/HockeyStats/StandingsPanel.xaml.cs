@@ -24,6 +24,7 @@ namespace HockeyStats
             this.InitializeComponent();
             this.Games = new ObservableCollection<Game>();
             this.Teams = new ObservableCollection<Team>();
+            this.gvStandings.ItemsSource = this.Teams;
             this.Teams.CollectionChanged += (s, e) =>
                 {
                 };
