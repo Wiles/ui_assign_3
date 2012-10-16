@@ -22,6 +22,7 @@ namespace HockeyStats
         public StatisticsPanel()
         {
             this.InitializeComponent();
+            cbTeam.ItemsSource = teams;
         }
 
         private ObservableCollection<Player> players { get; set; }
@@ -84,7 +85,7 @@ namespace HockeyStats
                 error = true;
             }
 
-            if (string.IsNullOrEmpty(tbTeam.Text))
+            if (string.IsNullOrEmpty((string)cbTeam.SelectedItem))
             {
                 // make shit red
                 error = true;
@@ -114,11 +115,11 @@ namespace HockeyStats
             }
 
             var player = Players.FirstOrDefault(p => p.Name.ToLower() == tbName.Text.ToLower()
-                    && p.Team.ToLower() == tbTeam.Text.ToLower());
+                    && p.Team.ToLower() == ((string)cbTeam.SelectedItem).ToLower());
 
             if (player == null)
             {
-                player = new Player(tbName.Text, tbTeam.Text, goals, assists, penalty);
+                player = new Player(tbName.Text, ((string)cbTeam.SelectedItem), goals, assists, penalty);
                 this.Players.Add(player);
             }
             else
@@ -128,9 +129,8 @@ namespace HockeyStats
                 player.AddPenaltyMinutes(penalty);
                 gvPlayers.ItemsSource = Players;
             }
-
+            cbTeam.SelectedIndex = -1;
             tbName.Text = String.Empty;
-            tbTeam.Text = String.Empty;
             tbGoals.Text = String.Empty;
             tbAssists.Text = String.Empty;
             tbPenalties.Text = String.Empty;
@@ -146,16 +146,6 @@ namespace HockeyStats
         private void tbName_LostFocus(object sender, RoutedEventArgs e)
         {
             lbName.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-        }
-
-        private void tbTeam_GotFocus(object sender, RoutedEventArgs e)
-        {
-            lbTeam.Visibility = loadTeams() ? Windows.UI.Xaml.Visibility.Visible : Windows.UI.Xaml.Visibility.Collapsed;
-        }
-
-        private void tbTeam_LostFocus(object sender, RoutedEventArgs e)
-        {
-            lbTeam.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         public void loadLists()
@@ -189,20 +179,11 @@ namespace HockeyStats
         private bool loadTeams()
         {
             var b = false;
-            lbTeam.Items.Clear();
-
-            if (string.IsNullOrEmpty(tbTeam.Text))
-            {
-                return false;
-            }
+            cbTeam.SelectedIndex = -1;
 
             foreach (var team in Players.Select(p => p.Team).Distinct())
             {
-                if (AutoCompleteCheck(team, tbTeam.Text))
-                {
-                    lbTeam.Items.Add(team);
-                    b = true;
-                }
+                cbTeam.Items.Add(team);
             }
 
             return b;
@@ -213,11 +194,6 @@ namespace HockeyStats
             lbName.Visibility = loadNames() ? Windows.UI.Xaml.Visibility.Visible : Windows.UI.Xaml.Visibility.Collapsed;
         }
 
-        private void tbTeam_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            lbTeam.Visibility = loadTeams() ? Windows.UI.Xaml.Visibility.Visible : Windows.UI.Xaml.Visibility.Collapsed;
-        }
-
         private void lbName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lbName.SelectedItem != null)
@@ -226,24 +202,15 @@ namespace HockeyStats
             }
         }
 
-        private void lbTeam_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (lbTeam.SelectedItem != null)
-            {
-                tbTeam.Text = (String)lbTeam.SelectedItem;
-            }
-        }
-
         private void gvPlayers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (gvPlayers.SelectedItem != null)
             {
                 tbName.Text = ((Player)gvPlayers.SelectedItem).Name;
-                tbTeam.Text = ((Player)gvPlayers.SelectedItem).Team;
+                cbTeam.SelectedIndex = cbTeam.Items.IndexOf(((Player)gvPlayers.SelectedItem).Team);
             }
 
             lbName.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            lbTeam.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private bool AutoCompleteCheck(string name, string search)

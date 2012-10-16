@@ -74,8 +74,7 @@
         <ListBox x:Name="lbName" HorizontalAlignment="Stretch" Margin="5,-300,5,44" Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom" SelectionChanged="lbName_SelectionChanged"/>
         <TextBox x:Name="tbName" Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" GotFocus="tbName_GotFocus" LostFocus="tbName_LostFocus" TextChanged="tbName_TextChanged"/>
 
-        <ListBox x:Name="lbTeam" HorizontalAlignment="Stretch" Margin="5,-300,5,44" Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" SelectionChanged="lbTeam_SelectionChanged" Visibility="Collapsed"/>
-        <TextBox x:Name="tbTeam" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" LostFocus="tbTeam_LostFocus" GotFocus="tbTeam_GotFocus" TextChanged="tbTeam_TextChanged"/>
+        <ComboBox x:Name="cbTeam" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
         
         <TextBox x:Name="tbGoals" Grid.Row="3" Grid.Column="2" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
         <TextBox x:Name="tbAssists" Grid.Row="3" Grid.Column="3" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
