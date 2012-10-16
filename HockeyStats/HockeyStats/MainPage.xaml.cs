@@ -59,6 +59,18 @@ namespace HockeyStats
         
         async private void btnOpen_Click(object sender, RoutedEventArgs e)
         {
+
+
+            var dialog = new MessageDialog("All unsaved changes will be lost.");
+            UICommand cancel = new UICommand("Cancel");
+            dialog.Commands.Add(new UICommand("Continue"));
+            dialog.Commands.Add(cancel);
+            if (await dialog.ShowAsync() == cancel)
+            {
+                return;
+            }
+
+
             var openPicker = new Windows.Storage.Pickers.FileOpenPicker();
             openPicker.FileTypeFilter.Add(".csv");
 

@@ -61,7 +61,6 @@ namespace HockeyStats
 
             if(Teams.Select(t => t).Where(t => t.Name.Equals(tbName)) != null || Teams.Select(t => t).Where(t => t.Color.Equals(tbColor)) != null)
             {
-
                 var dialog = new MessageDialog("A Team with that name or color already exists.");
                 await dialog.ShowAsync();
                 return;
