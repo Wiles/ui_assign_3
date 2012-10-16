@@ -14,7 +14,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -77,11 +77,10 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <telerik:RadDatePicker x:Name="dtpGame" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="5,1,5,5" HorizontalAlignment="Stretch" />
-        <ComboBox x:Name="cbTeam1" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" />
-        <TextBox x:Name="tbPoints1" Grid.Row="2" Grid.Column="4" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" />
-        <ComboBox x:Name="cbTeam2" Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" />
-        <TextBox x:Name="tbPoints2" Grid.Row="2" Grid.Column="7" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch" />
-        <Button x:Name="btnAdd" Content="Add" Grid.Row="2" Grid.Column="8" VerticalAlignment="Top" Margin="5,2,5,5" HorizontalAlignment="Stretch" Click="btnAdd_Click"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Text="Team Name:" FontSize="16"/>
+        <TextBox x:Name="tbName" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5,5,5,5" />
+        <TextBlock Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" Text="Team Color:" FontSize="16"/>
+        <TextBox x:Name="tbColor" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5,5,5,5" />
+        <Button x:Name="btnAdd" Content="Add" Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5,2,5,5" Click="btnAdd_Click" />
     </Grid>
 </UserControl>

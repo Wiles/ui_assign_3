@@ -27,7 +27,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="Team" />
+        <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="Home Team" />
         <TextBlock Grid.Column="1" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="G" />
         <TextBlock Grid.Column="2" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="W" />
         <TextBlock Grid.Column="3" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="18" Text="L" />
