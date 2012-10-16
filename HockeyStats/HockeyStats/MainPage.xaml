@@ -15,6 +15,7 @@
         <TextBlock x:Name="tbTitle" Text="Statistics" FontSize="32" TextAlignment="Center" HorizontalAlignment="Stretch" />
         <local:StatisticsPanel Grid.Row="1" x:Name="pnlStats" Margin="12,12,12,12" />
         <local:StandingsPanel Grid.Row="1" Visibility="Collapsed" x:Name="pnlStandings" Margin="12,12,12,12" />
+        <local:GamesPanel Grid.Row="1" Visibility="Collapsed" x:Name="pnlGames" Margin="12,12,12,12" />
     </Grid>
     <Page.TopAppBar>
         <AppBar>
@@ -22,9 +23,11 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" x:Name="btnStats" Content="Statistics" Margin="25,5,25,5" Click="btnStats_Click_1" Width="100" Height="100"/>
-                <Button Grid.Column="1" x:Name="btnStandings" Content="Standings" Margin="25,5,25,5" Click="btnStandings_Click_1" Width="100" Height="100"/>
+                <Button Grid.Column="1" x:Name="btnGames" Content="Games" Margin="25,5,25,5" Click="btnGames_Click_1"  Width="100" Height="100"/>
+                <Button Grid.Column="2" x:Name="btnStandings" Content="Standings" Margin="25,5,25,5" Click="btnStandings_Click_1" Width="100" Height="100"/>
             </Grid>
         </AppBar>
     </Page.TopAppBar>
