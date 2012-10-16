@@ -25,7 +25,7 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" x:Name="btnStats" Content="Statistics" Margin="25,5,25,5" Click="btnStats_Click_1" Width="100" Height="100"/>
+                <Button Grid.Column="0" x:Name="btnStats" Content="Statistics" Margin="25,5,25,5" Click="btnStats_Click_1" FontStyle="Italic" Width="100" Height="100" FontWeight="Bold"/>
                 <Button Grid.Column="1" x:Name="btnGames" Content="Games" Margin="25,5,25,5" Click="btnGames_Click_1"  Width="100" Height="100"/>
                 <Button Grid.Column="2" x:Name="btnStandings" Content="Standings" Margin="25,5,25,5" Click="btnStandings_Click_1" Width="100" Height="100"/>
             </Grid>
