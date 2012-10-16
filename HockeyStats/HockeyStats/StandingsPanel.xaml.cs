@@ -64,7 +64,7 @@ namespace HockeyStats
             t.Color = tbColor.Text;
 
             this.Teams.Add(t);
-
+            
             tbName.Text = string.Empty;
             tbColor.Text = string.Empty;
         }
