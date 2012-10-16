@@ -22,17 +22,34 @@ namespace HockeyStats
         public StandingsPanel()
         {
             this.InitializeComponent();
-            this.Games = new ObservableCollection<Game>();
-            this.Teams = new ObservableCollection<Team>();
-            this.gvStandings.ItemsSource = this.Teams;
-            this.Teams.CollectionChanged += (s, e) =>
-                {
-                };
         }
 
-        public ObservableCollection<Game> Games { get; private set; }
+        private ObservableCollection<Game> games { get; set; }
+        public ObservableCollection<Game> Games
+        {
+            get
+            {
+                return games;
+            }
+            set
+            {
+                games = value;
+            }
+        }
 
-        public ObservableCollection<Team> Teams { get; private set; }
+        private ObservableCollection<Team> teams { get; set; }
+        public ObservableCollection<Team> Teams
+        {
+            get
+            {
+                return teams;
+            }
+            set
+            {
+                teams = value;
+                gvStandings.ItemsSource = teams;
+            }
+        }
         
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {

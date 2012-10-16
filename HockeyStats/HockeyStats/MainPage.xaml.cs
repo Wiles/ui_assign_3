@@ -27,11 +27,22 @@ namespace HockeyStats
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
         public MainPage()
         {
             this.InitializeComponent();
+            this.Players = new ObservableCollection<Player>();
+            this.Games = new ObservableCollection<Game>();
+            this.Teams = new ObservableCollection<Team>();
+            this.pnlStats.Players = this.Players;
+            this.pnlStandings.Games = this.Games;
+            this.pnlStandings.Teams = this.Teams;
         }
+
+        private ObservableCollection<Player> Players { get; set; }
+
+        private ObservableCollection<Game> Games { get; set; }
+
+        private ObservableCollection<Team> Teams { get; set; }
 
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
