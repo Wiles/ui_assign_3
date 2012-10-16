@@ -56,148 +56,106 @@ namespace HockeyStats
         
         async private void btnOpen_Click(object sender, RoutedEventArgs e)
         {
-            if (pnlStats.Visibility == Windows.UI.Xaml.Visibility.Visible)
+            var openPicker = new Windows.Storage.Pickers.FileOpenPicker();
+            openPicker.FileTypeFilter.Add(".csv");
+
+            var file = await openPicker.PickSingleFileAsync();
+            if (file != null)
             {
-                var openPicker = new Windows.Storage.Pickers.FileOpenPicker();
-                openPicker.FileTypeFilter.Add(".csv");
+                var thing = await file.OpenSequentialReadAsync();
 
-                var file = await openPicker.PickSingleFileAsync();
-                if (file != null)
+                var gameText = string.Empty;
+                var teamText = string.Empty;
+                var playerText = string.Empty;
+
+                using (StreamReader sr = new StreamReader(thing.AsStreamForRead()))
                 {
-                    var thing = await file.OpenSequentialReadAsync();
-                    CsvSerializer csv = new CsvSerializer();
-                    using (StreamReader sr = new StreamReader(thing.AsStreamForRead()))
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
                     {
-                        var foo = csv.Deserialize<Player>(sr.ReadToEnd());
-                        pnlStats.Players.Clear();
-                        pnlStats.Players.AddRange(foo);
-                    }
-                }
-            }
-            else
-            {
-                var openPicker = new Windows.Storage.Pickers.FileOpenPicker();
-                openPicker.FileTypeFilter.Add(".csv");
-
-                var file = await openPicker.PickSingleFileAsync();
-                if (file != null)
-                {
-                    var thing = await file.OpenSequentialReadAsync();
-
-                    var gameText = string.Empty;
-                    var teamText = string.Empty;
-
-                    using (StreamReader sr = new StreamReader(thing.AsStreamForRead()))
-                    {
-                        string line;
-                        while ((line = sr.ReadLine()) != null)
+                        if (line.Length > 0)
                         {
-                            if (line.Length > 0)
+                            if (line[0] == 'T')
                             {
-                                if (line[0] == 'T')
-                                {
-                                    teamText += line + Environment.NewLine;
-                                }
-                                else if (line[0] == 'G')
-                                {
-                                    gameText += line + Environment.NewLine;
-                                }
+                                teamText += line + Environment.NewLine;
+                            }
+                            else if (line[0] == 'G')
+                            {
+                                gameText += line + Environment.NewLine;
+                            }
+                            else if (line[0] == 'P')
+                            {
+                                playerText += line + Environment.NewLine;
                             }
                         }
                     }
-
-                    CsvSerializer csv = new CsvSerializer();
-                    var games = csv.Deserialize<Game>(gameText);
-                    var teams = csv.Deserialize<Team>(teamText);
-
-
-
-                    Dictionary<int, Team> teamsById = new Dictionary<int, Team>();
-
-                    foreach(Team team in teams)
-                    {
-                        teamsById.Add(team.Number, team);
-                    }
-
-                    foreach(Game game in games)
-                    {
-                        teamsById[game.Home].GoalsScored += game.HomeScore;
-                        teamsById[game.Home].GoalsAllowed += game.VisitorScore;
-
-                        teamsById[game.Visitor].GoalsAllowed += game.HomeScore;
-                        teamsById[game.Visitor].GoalsScored += game.VisitorScore;
-
-                        if (game.HomeScore > game.VisitorScore)
-                        {
-                            teamsById[game.Home].Wins += 1;
-                            teamsById[game.Visitor].Losses += 1;
-                        }
-                        else if (game.VisitorScore > game.HomeScore)
-                        {
-                            teamsById[game.Home].Losses += 1;
-                            teamsById[game.Visitor].Wins += 1;
-                        }
-                        else
-                        {
-                            teamsById[game.Home].Ties += 1;
-                            teamsById[game.Visitor].Ties += 1;
-                        }
-                    }
-
-                    pnlStandings.Games.AddRange(games);
-                    pnlStandings.Teams.AddRange(teams);
                 }
+
+                CsvSerializer csv = new CsvSerializer();
+                var games = csv.Deserialize<Game>(gameText);
+                var teams = csv.Deserialize<Team>(teamText);
+                var players = csv.Deserialize<Player>(playerText);
+
+                Dictionary<int, Team> teamsById = new Dictionary<int, Team>();
+
+                foreach(Team team in teams)
+                {
+                    teamsById.Add(team.Number, team);
+                }
+
+                foreach(Game game in games)
+                {
+                    teamsById[game.Home].GoalsScored += game.HomeScore;
+                    teamsById[game.Home].GoalsAllowed += game.VisitorScore;
+
+                    teamsById[game.Visitor].GoalsAllowed += game.HomeScore;
+                    teamsById[game.Visitor].GoalsScored += game.VisitorScore;
+
+                    if (game.HomeScore > game.VisitorScore)
+                    {
+                        teamsById[game.Home].Wins += 1;
+                        teamsById[game.Visitor].Losses += 1;
+                    }
+                    else if (game.VisitorScore > game.HomeScore)
+                    {
+                        teamsById[game.Home].Losses += 1;
+                        teamsById[game.Visitor].Wins += 1;
+                    }
+                    else
+                    {
+                        teamsById[game.Home].Ties += 1;
+                        teamsById[game.Visitor].Ties += 1;
+                    }
+                }
+                pnlStats.Players.AddRange(players);
+                pnlStandings.Games.AddRange(games);
+                pnlStandings.Teams.AddRange(teams);
             }
             pnlStats.loadLists();
         }
 
         async void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+            savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            savePicker.FileTypeChoices.Add("Comma Separated Values", new List<string>() { ".csv" });
 
-            if (pnlStats.Visibility == Windows.UI.Xaml.Visibility.Visible)
+            var file = await savePicker.PickSaveFileAsync();
+            if (file != null)
             {
-                var savePicker = new Windows.Storage.Pickers.FileSavePicker();
-                savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-                savePicker.FileTypeChoices.Add("Comma Separated Values", new List<string>() { ".csv" });
-
-                var file = await savePicker.PickSaveFileAsync();
-                if (file != null)
+                var thing = await file.OpenStreamForWriteAsync();
+                using (StreamWriter sw = new StreamWriter(thing.AsOutputStream().AsStreamForWrite()))
                 {
-                    var thing = await file.OpenStreamForWriteAsync();
-                    using (StreamWriter sw = new StreamWriter(thing.AsOutputStream().AsStreamForWrite()))
-                    {
-                        CsvSerializer csv = new CsvSerializer();
-                        sw.Write(csv.Serialize(pnlStats.Players));
-                    }
-                }
-                else
-                {
-                    //TODO make this not crappy.
-                    //                throw new Exception();
+                    CsvSerializer csv = new CsvSerializer();
+                    sw.Write(csv.Serialize(pnlStandings.Teams));
+                    sw.Write(csv.Serialize(pnlStandings.Games));
+                    sw.Write(csv.Serialize(pnlStats.Players));
                 }
             }
             else
             {
-                var savePicker = new Windows.Storage.Pickers.FileSavePicker();
-                savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-                savePicker.FileTypeChoices.Add("Comma Separated Values", new List<string>() { ".csv" });
-
-                var file = await savePicker.PickSaveFileAsync();
-                if (file != null)
-                {
-                    var thing = await file.OpenStreamForWriteAsync();
-                    using (StreamWriter sw = new StreamWriter(thing.AsOutputStream().AsStreamForWrite()))
-                    {
-                        CsvSerializer csv = new CsvSerializer();
-                        sw.Write(csv.Serialize(pnlStandings.Teams));
-                        sw.Write(csv.Serialize(pnlStandings.Games));
-                    }
-                }
-                else
-                {
-                    //TODO make this not crappy.
-                    //                throw new Exception();
-                }
+                //TODO make this not crappy.
+                //                throw new Exception();
             }
 
         }
