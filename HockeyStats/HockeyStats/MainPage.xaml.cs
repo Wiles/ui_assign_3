@@ -175,6 +175,10 @@ namespace HockeyStats
             pnlStats.Visibility = Windows.UI.Xaml.Visibility.Visible;
             tbTitle.Text = "Statistics";
             pnlStats.loadLists();
+
+            btnStats.FontStyle = Windows.UI.Text.FontStyle.Italic;
+            btnStandings.FontStyle = Windows.UI.Text.FontStyle.Normal;
+            btnGames.FontStyle = Windows.UI.Text.FontStyle.Normal;
         }
 
         private void btnStandings_Click_1(object sender, RoutedEventArgs e)
@@ -183,6 +187,10 @@ namespace HockeyStats
             pnlGames.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             pnlStandings.Visibility = Windows.UI.Xaml.Visibility.Visible;
             tbTitle.Text = "Standings";
+
+            btnStats.FontStyle = Windows.UI.Text.FontStyle.Normal;
+            btnStandings.FontStyle = Windows.UI.Text.FontStyle.Italic;
+            btnGames.FontStyle = Windows.UI.Text.FontStyle.Normal;
         }
 
         private void btnGames_Click_1(object sender, RoutedEventArgs e)
@@ -191,6 +199,10 @@ namespace HockeyStats
             pnlStandings.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             pnlGames.Visibility = Windows.UI.Xaml.Visibility.Visible;
             tbTitle.Text = "Games";
+
+            btnStats.FontStyle = Windows.UI.Text.FontStyle.Normal;
+            btnStandings.FontStyle = Windows.UI.Text.FontStyle.Normal;
+            btnGames.FontStyle = Windows.UI.Text.FontStyle.Italic;
         }
 
         async private void btnNews_Click_1(object sender, RoutedEventArgs e)
