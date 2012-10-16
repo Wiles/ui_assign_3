@@ -189,5 +189,14 @@ namespace HockeyStats
                 tbTeam.Text = (String)lbTeam.SelectedItem;
             }
         }
+
+        private void gvPlayers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (gvPlayers.SelectedItem != null)
+            {
+                tbName.Text = ((Player)gvPlayers.SelectedItem).Name;
+                tbTeam.Text = ((Player)gvPlayers.SelectedItem).Team;
+            }
+        }
     }
 }
