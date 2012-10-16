@@ -37,8 +37,16 @@ namespace HockeyStats
                     {
                         s.Append(",");
                     }
+                    var type = kvp.Value.PropertyType;
+                    if (type == typeof(DateTime))
+                    {
+                        s.Append(((DateTime)kvp.Value.GetValue(entity)).ToString("s"));
+                    }
+                    else
+                    {
+                        s.Append(kvp.Value.GetValue(entity).ToString());
+                    }
 
-                    s.Append(kvp.Value.GetValue(entity).ToString());
                     first = false;
                 }
 
