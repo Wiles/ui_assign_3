@@ -79,6 +79,6 @@
         <TextBox x:Name="tbGoals" Grid.Row="3" Grid.Column="2" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
         <TextBox x:Name="tbAssists" Grid.Row="3" Grid.Column="3" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
         <TextBox x:Name="tbPenalties" Grid.Row="3" Grid.Column="4" VerticalAlignment="Top" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
-        <Button x:Name="btnAdd" Content="Add" Grid.Row="3" Grid.Column="5" VerticalAlignment="Top" Margin="5,2,5,5" HorizontalAlignment="Stretch" Click="btnAdd_Click_1"/>
+        <Button x:Name="btnAdd" Content="Add Player" Grid.Row="3" Grid.Column="5" VerticalAlignment="Top" Margin="5,2,5,5" HorizontalAlignment="Stretch" Click="btnAdd_Click_1"/>
     </Grid>
 </UserControl>
