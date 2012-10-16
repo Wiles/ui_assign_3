@@ -72,7 +72,7 @@
                         <TextBlock Grid.Column="5" TextAlignment="Center" Text="{Binding Points}" />
                         <TextBlock Grid.Column="6" TextAlignment="Center" Text="{Binding GoalsScored}" />
                         <TextBlock Grid.Column="7" TextAlignment="Center" Text="{Binding GoalsAllowed}" />
-                        <TextBlock Grid.Column="8" TextAlignment="Center" Text="{Binding AverageGoalsScoredPerGame}" />
+                        <TextBlock Grid.Column="8" TextAlignment="Center" Text="{Binding DiffString}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
