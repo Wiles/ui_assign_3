@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -72,45 +73,51 @@ namespace HockeyStats
             }
         }
         
-        private void btnAdd_Click_1(object sender, RoutedEventArgs e)
+        async private void btnAdd_Click_1(object sender, RoutedEventArgs e)
         {
-            bool error = false;
             int goals;
             int assists;
             int penalty;
 
             if (string.IsNullOrEmpty(tbName.Text))
             {
-                // make shit red
-                error = true;
+                var dialog = new MessageDialog("Each player must have a name.");
+                await dialog.ShowAsync();
+                return;
+            }
+
+            if( Players.Select(t => t).Where(t => t.Name.Equals(tbName.Text)).Count() != 0)
+            {
+                var dialog = new MessageDialog("A player with that name already exists.");
+                await dialog.ShowAsync();
+                return;
             }
 
             if (string.IsNullOrEmpty((string)cbTeam.SelectedItem))
             {
-                // make shit red
-                error = true;
+                var dialog = new MessageDialog("Each player must have a team.");
+                await dialog.ShowAsync();
+                return;
             }
 
             if (!Int32.TryParse(tbGoals.Text, out goals))
             {
-                // red shit everywhere
-                error = true;
+                var dialog = new MessageDialog("Goals cannot be empty. Enter 0 for no goals.");
+                await dialog.ShowAsync();
+                return;
             }
 
             if (!Int32.TryParse(tbAssists.Text, out assists))
             {
-                // red shit everywhere
-                error = true;
+                var dialog = new MessageDialog("Assists cannot be empty. Enter 0 for no assists.");
+                await dialog.ShowAsync();
+                return;
             }
 
             if (!Int32.TryParse(tbPenalties.Text, out penalty))
             {
-                // red shit everywhere
-                error = true;
-            }
-
-            if (error)
-            {
+                var dialog = new MessageDialog("Penality minutes cannot be empty. Enter 0 for no penality minutes.");
+                await dialog.ShowAsync();
                 return;
             }
 

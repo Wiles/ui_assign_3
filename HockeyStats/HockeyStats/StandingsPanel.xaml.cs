@@ -58,8 +58,10 @@ namespace HockeyStats
             {
                 return;
             }
-
-            if(Teams.Select(t => t).Where(t => t.Name.Equals(tbName)) != null || Teams.Select(t => t).Where(t => t.Color.Equals(tbColor)) != null)
+            var c = this.Teams.Select(t => t).Where(t => t.Name.Equals(tbName.Text)).Count();
+            var b = this.Teams.Select(t => t).Where(t => t.Color.Equals(tbColor.Text)).Count();
+                
+            if( c != 0 || b != 0)
             {
                 var dialog = new MessageDialog("A Team with that name or color already exists.");
                 await dialog.ShowAsync();

@@ -70,7 +70,6 @@ namespace HockeyStats
                 return;
             }
 
-
             var openPicker = new Windows.Storage.Pickers.FileOpenPicker();
             openPicker.FileTypeFilter.Add(".csv");
 
