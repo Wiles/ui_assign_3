@@ -23,6 +23,7 @@ namespace HockeyStats
         {
             this.InitializeComponent();
             this.Players = new ObservableCollection<Player>();
+
             gvPlayers.ItemsSource = this.Players;
             this.Players.CollectionChanged += (s, e) =>
                 {
@@ -111,6 +112,82 @@ namespace HockeyStats
             tbGoals.Text = String.Empty;
             tbAssists.Text = String.Empty;
             tbPenalties.Text = String.Empty;
+            loadNames();
+            loadTeams();
+        }
+
+        private void tbName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            lbName.Visibility = Windows.UI.Xaml.Visibility.Visible;
+        }
+
+        private void tbName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            lbName.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+        }
+
+
+        private void tbTeam_GotFocus(object sender, RoutedEventArgs e)
+        {
+            lbTeam.Visibility = Windows.UI.Xaml.Visibility.Visible;
+        }
+
+        private void tbTeam_LostFocus(object sender, RoutedEventArgs e)
+        {
+            lbTeam.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+        }
+
+        public void loadLists()
+        {
+            loadNames();
+            loadTeams();
+        }
+
+        private void loadNames()
+        {
+            lbName.Items.Clear();
+            foreach(Player p in Players)
+            {
+                if(p.Name.ToLower().Contains(tbName.Text))
+                {
+                    lbName.Items.Add(p.Name);
+                }
+            }
+        }
+
+
+        private void loadTeams()
+        {
+            lbName.Items.Clear();
+            foreach (Player p in Players)
+            {
+                if (p.Name.ToLower().Contains(tbName.Text) && !lbName.Items.Contains(p.Team))
+                {
+                    lbName.Items.Add(p.Name);
+                }
+            }
+        }
+
+        private void tbName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            loadNames();
+        }
+
+        private void lbName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lbName.SelectedItem != null)
+            {
+                tbName.Text = (String)lbName.SelectedItem;
+            }
+        }
+
+        private void lbTeam_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            if (lbTeam.SelectedItem != null)
+            {
+                tbTeam.Text = (String)lbTeam.SelectedItem;
+            }
         }
     }
 }

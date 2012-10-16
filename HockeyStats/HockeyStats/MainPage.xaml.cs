@@ -65,6 +65,7 @@ namespace HockeyStats
                 //TODO make this not crappy.
                 //throw new Exception();
             }
+            pnlStats.loadLists();
         }
 
         async void btnSave_Click(object sender, RoutedEventArgs e)
