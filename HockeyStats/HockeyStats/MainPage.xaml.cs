@@ -209,11 +209,21 @@ namespace HockeyStats
                 newsText += String.Format(@"{0}", Environment.NewLine);
             }
 
-            var data = new DataPackage();
-            data.SetText(newsText);
-            Clipboard.SetContent(data);
-            var message = new MessageDialog("The News Text has been copied to the clipboard.");
-            await message.ShowAsync();
+            string message;
+            if (!string.IsNullOrWhiteSpace(newsText))
+            {
+                var data = new DataPackage();
+                data.SetText(newsText);
+                Clipboard.SetContent(data);
+                message = "The News Text has been copied to the clipboard.";
+            }
+            else
+            {
+                message = "No player information available.";
+            }
+
+            var dialog = new MessageDialog(message);
+            await dialog.ShowAsync();
         }
 
         private void btnStats_SizeChanged_1(object sender, SizeChangedEventArgs e)

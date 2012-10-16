@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using Windows.Foundation;
@@ -23,6 +24,6 @@ namespace HockeyStats
             this.InitializeComponent();
         }
 
-        public DateTime GameDate { get; set; }
+        ObservableCollection<object> Games { get; set; }
     }
 }

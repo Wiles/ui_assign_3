@@ -22,10 +22,10 @@ namespace HockeyStats
         [CsvColumn(3)]
         public Int32 Assists { get; set; }
 
-
         public Int32 SessionGoals { get; set; }
 
         public Int32 SessionAssists { get; set; }
+
         public Int32 SessionPenaltyMinutes { get; set; }
 
         [CsvColumn(4)]
