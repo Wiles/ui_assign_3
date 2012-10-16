@@ -79,17 +79,17 @@ namespace HockeyStats
             NotifyPropertyChanged("PenaltyMinutes");
         }
 
-        public string ToHtmlRow()
+        public string ToHtmlRow(String color)
         {
             return String.Format(
-@"<tr>
-<td>{0}</td>
+@"<tr{0}>
 <td>{1}</td>
-<td style=""text-align: right"">{2}</td>
+<td>{2}</td>
 <td style=""text-align: right"">{3}</td>
-<td style=""text-align: right"">{5}</td>
 <td style=""text-align: right"">{4}</td>
-</tr>", Name, Team, Goals, Assists, PenaltyMinutes, Points);
+<td style=""text-align: right"">{6}</td>
+<td style=""text-align: right"">{5}</td>
+</tr>", (color != null) ? " style =\"background-color:" + color + "\"" : "", Name, Team, Goals, Assists, PenaltyMinutes, Points);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

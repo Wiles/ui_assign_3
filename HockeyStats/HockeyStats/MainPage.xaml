@@ -39,11 +39,27 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                     <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" x:Name="btnOpen" Content="Open" Margin="25,5,25,5" Click="btnOpen_Click" Width="100" Height="100"/>
                 <Button Grid.Column="1" x:Name="btnSave" Content="Save" Margin="25,5,25,5" Click="btnSave_Click" Width="100" Height="100"/>
-                <Button Grid.Column="2" x:Name="btnExport" Content="Export" Margin="25,5,25,5" Click="btnExport_Click" Width="100" Height="100"/>
-                <Button Grid.Column="3" x:Name="btnNews" Content="News Text" Margin="25,5,25,5" Click="btnNews_Click_1" Width="100" Height="100"/>
+                <Button Grid.Column="2" x:Name="btnExportStatistics" Margin="25,5,25,5" Click="btnExportStatistics_Click" Width="100" Height="100">
+                    <Button.Content>
+                        <StackPanel>
+                            <TextBlock TextAlignment="Center" Text="Export"/>
+                            <TextBlock TextAlignment="Center" Text="Statistics"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Column="3" x:Name="btnExportStandings" Margin="25,5,25,5" Click="btnExportStandings_Click" Width="100" Height="100">
+                    <Button.Content>
+                        <StackPanel>
+                            <TextBlock TextAlignment="Center" Text="Export"/>
+                            <TextBlock TextAlignment="Center" Text="Standings"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Column="4" x:Name="btnNews" Content="News Text" Margin="25,5,25,5" Click="btnNews_Click_1" Width="100" Height="100"/>
             </Grid>
         </AppBar>
     </Page.BottomAppBar>
