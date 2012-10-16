@@ -166,12 +166,6 @@ namespace HockeyStats
                     sw.Write(csv.Serialize(pnlStats.Players));
                 }
             }
-            else
-            {
-                //TODO make this not crappy.
-                //                throw new Exception();
-            }
-
         }
 
         private void btnStats_Click_1(object sender, RoutedEventArgs e)
@@ -375,11 +369,6 @@ namespace HockeyStats
                     sw.Write(sb.ToString());
                 }
             }
-            else
-            {
-                //TODO make this not crappy.
-                //                throw new Exception();
-            }
         }
 
         async private void btnExportStatistics_Click(object sender, RoutedEventArgs e)
@@ -417,11 +406,6 @@ namespace HockeyStats
 
                     sw.Write(sb.ToString());
                 }
-            }
-            else
-            {
-                //TODO make this not crappy.
-                //                throw new Exception();
             }
         }
     }

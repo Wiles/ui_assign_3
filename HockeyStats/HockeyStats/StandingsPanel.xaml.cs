@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -51,19 +52,27 @@ namespace HockeyStats
             }
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        async private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(tbName.Text) || string.IsNullOrWhiteSpace(tbColor.Text))
             {
                 return;
             }
 
-            var t = new Team();
-            t.id = "T";
-            t.Name = tbName.Text;
-            t.Color = tbColor.Text;
+            if(Teams.Select(t => t).Where(t => t.Name.Equals(tbName)) != null || Teams.Select(t => t).Where(t => t.Color.Equals(tbColor)) != null)
+            {
 
-            this.Teams.Add(t);
+                var dialog = new MessageDialog("A Team with that name or color already exists.");
+                await dialog.ShowAsync();
+                return;
+            }
+
+            var team = new Team();
+            team.id = "T";
+            team.Name = tbName.Text;
+            team.Color = tbColor.Text;
+
+            this.Teams.Add(team);
             
             tbName.Text = string.Empty;
             tbColor.Text = string.Empty;
