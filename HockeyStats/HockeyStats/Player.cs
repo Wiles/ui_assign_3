@@ -11,15 +11,18 @@ namespace HockeyStats
     public class Player : INotifyPropertyChanged
     {
         [CsvColumn(0)]
-        public String Name { get; set; }
+        public String Id { get; set; }
 
         [CsvColumn(1)]
-        public String Team { get; set; }
+        public String Name { get; set; }
 
         [CsvColumn(2)]
-        public Int32 Goals { get; set; }
+        public String Team { get; set; }
 
         [CsvColumn(3)]
+        public Int32 Goals { get; set; }
+
+        [CsvColumn(4)]
         public Int32 Assists { get; set; }
 
         public Int32 SessionGoals { get; set; }
@@ -28,7 +31,7 @@ namespace HockeyStats
 
         public Int32 SessionPenaltyMinutes { get; set; }
 
-        [CsvColumn(4)]
+        [CsvColumn(5)]
         public Int32 PenaltyMinutes { get; set; }
 
         public int Points
