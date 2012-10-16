@@ -164,7 +164,6 @@ namespace HockeyStats
                         goals += String.Format(@"({0})", p.SessionGoals);
                     }
 
-                    //dGoals.Add(p.Team, goals);
                     dGoals[p.Team] = goals;
                 }
 
@@ -183,7 +182,6 @@ namespace HockeyStats
                         assists += String.Format(@"({0})", p.SessionAssists);
                     }
 
-                    //dGoals.Add(p.Team, assists);
                     dAssists[p.Team] = assists;
                 }
             }
