@@ -95,6 +95,9 @@ namespace HockeyStats
                 }
 
                 CsvSerializer csv = new CsvSerializer();
+                Teams.Clear();
+                Players.Clear();
+                Games.Clear();
                 this.Teams.AddRange(csv.Deserialize<Team>(teamText));
                 this.Players.AddRange(csv.Deserialize<Player>(playerText));
                 this.Games.AddRange(csv.Deserialize<Game>(gameText));
