@@ -8,13 +8,13 @@
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        
-        <local:StatisticsPanel Grid.Column="1" x:Name="pnlStats" Margin="12,12,12,12" />
-        <local:StandingsPanel Grid.Column="1" Visibility="Collapsed" x:Name="pnlStandings" Margin="12,12,12,12" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="tbTitle" Text="Statistics" FontSize="32" TextAlignment="Center" HorizontalAlignment="Stretch" />
+        <local:StatisticsPanel Grid.Row="1" x:Name="pnlStats" Margin="12,12,12,12" />
+        <local:StandingsPanel Grid.Row="1" Visibility="Collapsed" x:Name="pnlStandings" Margin="12,12,12,12" />
     </Grid>
     <Page.TopAppBar>
         <AppBar>

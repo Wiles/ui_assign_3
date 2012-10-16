@@ -202,6 +202,7 @@ namespace HockeyStats
             pnlStandings.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             pnlStats.Visibility = Windows.UI.Xaml.Visibility.Visible;
             btnNews.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            tbTitle.Text = "Statistics";
         }
 
         private void btnStandings_Click_1(object sender, RoutedEventArgs e)
@@ -209,6 +210,7 @@ namespace HockeyStats
             pnlStats.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             pnlStandings.Visibility = Windows.UI.Xaml.Visibility.Visible;
             btnNews.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            tbTitle.Text = "Standings";
         }
 
         async private void btnNews_Click_1(object sender, RoutedEventArgs e)
