@@ -302,8 +302,6 @@ namespace HockeyStats
             pnlStandings.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             pnlGames.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             pnlStats.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            btnExport.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            btnNews.Visibility = Windows.UI.Xaml.Visibility.Visible;
             tbTitle.Text = "Statistics";
         }
 
@@ -312,8 +310,6 @@ namespace HockeyStats
             pnlStats.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             pnlGames.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             pnlStandings.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            btnExport.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            btnNews.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             tbTitle.Text = "Standings";
         }
 
@@ -322,8 +318,6 @@ namespace HockeyStats
             pnlStats.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             pnlStandings.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             pnlGames.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            btnExport.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            btnNews.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             tbTitle.Text = "Games";
         }
 
