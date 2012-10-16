@@ -169,6 +169,7 @@ namespace HockeyStats
             pnlGames.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             pnlStats.Visibility = Windows.UI.Xaml.Visibility.Visible;
             tbTitle.Text = "Statistics";
+            pnlStats.loadLists();
         }
 
         private void btnStandings_Click_1(object sender, RoutedEventArgs e)
