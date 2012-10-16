@@ -35,16 +35,16 @@ namespace HockeyStats
             {
                 games = value;
                 games.CollectionChanged += (s, e) =>
-                {
-                    models = new ObservableCollection<GameModel>();
-
-                    foreach (var game in games.OrderByDescending(g => g.Date))
                     {
-                        models.Add(CreateModel(game));
-                    }
+                        models = new ObservableCollection<GameModel>();
 
-                    gvGames.ItemsSource = models;
-                };
+                        foreach (var game in games.OrderByDescending(g => g.Date))
+                        {
+                            models.Add(CreateModel(game));
+                        }
+
+                        gvGames.ItemsSource = models;
+                    };
             }
         }
 
@@ -58,6 +58,11 @@ namespace HockeyStats
             set
             {
                 teams = value;
+                teams.CollectionChanged += (s, e) =>
+                {
+                    cbTeam1.ItemsSource = teams;
+                    cbTeam2.ItemsSource = teams;
+                };
             }
         }
 
@@ -66,20 +71,27 @@ namespace HockeyStats
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             var game = new Game();
+            var home = cbTeam1.SelectedItem as Team;
+            var visitor = cbTeam2.SelectedItem as Team;
+            int homeScore;
+            int visitorScore;
 
-            var error = false;
-
-            if (!dtpGame.Value.HasValue)
-            {
-                error = true;
-            }
-
-            if (error)
+            if (!dtpGame.Value.HasValue
+                || home == visitor
+                || !int.TryParse(tbPoints1.Text, out homeScore)
+                || !int.TryParse(tbPoints2.Text, out visitorScore))
             {
                 return;
             }
 
+            game.id = "G";
             game.Date = dtpGame.Value.Value;
+            game.Home = home.Number;
+            game.Visitor = visitor.Number;
+            game.HomeScore = homeScore;
+            game.VisitorScore = visitorScore;
+
+            this.Games.Add(game);
         }
 
         private GameModel CreateModel(Game game)

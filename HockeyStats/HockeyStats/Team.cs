@@ -11,7 +11,6 @@ namespace HockeyStats
 {
     public class Team : INotifyPropertyChanged
     {
-
         [CsvColumn(0)]
         public string id { get; set; }
 
@@ -22,7 +21,7 @@ namespace HockeyStats
         public string Name { get; set; }
 
         [CsvColumn(3)]
-        public string color { get; set; }
+        public string Color { get; set; }
 
         public int Wins { get; set; }
 
@@ -107,6 +106,11 @@ namespace HockeyStats
                 ret = (-1) * GoalsAllowed.CompareTo(t.GoalsAllowed);
 
             return ret;
+        }
+
+        public override string ToString()
+        {
+            return this.Name;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

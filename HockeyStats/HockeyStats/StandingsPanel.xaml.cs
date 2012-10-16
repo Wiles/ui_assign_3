@@ -59,8 +59,9 @@ namespace HockeyStats
             }
 
             var t = new Team();
+            t.id = "T";
             t.Name = tbName.Text;
-            t.color = tbColor.Text;
+            t.Color = tbColor.Text;
 
             this.Teams.Add(t);
 
