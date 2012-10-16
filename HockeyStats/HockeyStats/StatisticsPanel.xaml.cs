@@ -118,7 +118,7 @@ namespace HockeyStats
 
         private void tbName_GotFocus(object sender, RoutedEventArgs e)
         {
-            lbName.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            lbName.Visibility = loadNames() ? Windows.UI.Xaml.Visibility.Visible : Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private void tbName_LostFocus(object sender, RoutedEventArgs e)
@@ -126,10 +126,9 @@ namespace HockeyStats
             lbName.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
-
         private void tbTeam_GotFocus(object sender, RoutedEventArgs e)
         {
-            lbTeam.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            lbTeam.Visibility = loadTeams() ? Windows.UI.Xaml.Visibility.Visible : Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private void tbTeam_LostFocus(object sender, RoutedEventArgs e)
@@ -143,34 +142,58 @@ namespace HockeyStats
             loadTeams();
         }
 
-        private void loadNames()
+        private bool loadNames()
         {
+            var b = false;
             lbName.Items.Clear();
+
+            if (string.IsNullOrEmpty(tbName.Text))
+            {
+                return false;
+            }
+
             foreach(Player p in Players)
             {
-                if(p.Name.ToLower().Contains(tbName.Text))
+                if(AutoCompleteCheck(p.Name, tbName.Text))
                 {
                     lbName.Items.Add(p.Name);
+                    b = true;
                 }
             }
+
+            return b;
         }
 
-
-        private void loadTeams()
+        private bool loadTeams()
         {
-            lbName.Items.Clear();
-            foreach (Player p in Players)
+            var b = false;
+            lbTeam.Items.Clear();
+
+            if (string.IsNullOrEmpty(tbTeam.Text))
             {
-                if (p.Name.ToLower().Contains(tbName.Text) && !lbName.Items.Contains(p.Team))
+                return false;
+            }
+
+            foreach (var team in Players.Select(p => p.Team).Distinct())
+            {
+                if (AutoCompleteCheck(team, tbTeam.Text))
                 {
-                    lbName.Items.Add(p.Name);
+                    lbTeam.Items.Add(team);
+                    b = true;
                 }
             }
+
+            return b;
         }
 
         private void tbName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            loadNames();
+            lbName.Visibility = loadNames() ? Windows.UI.Xaml.Visibility.Visible : Windows.UI.Xaml.Visibility.Collapsed;
+        }
+
+        private void tbTeam_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lbTeam.Visibility = loadTeams() ? Windows.UI.Xaml.Visibility.Visible : Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private void lbName_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -183,7 +206,6 @@ namespace HockeyStats
 
         private void lbTeam_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
             if (lbTeam.SelectedItem != null)
             {
                 tbTeam.Text = (String)lbTeam.SelectedItem;
@@ -197,6 +219,37 @@ namespace HockeyStats
                 tbName.Text = ((Player)gvPlayers.SelectedItem).Name;
                 tbTeam.Text = ((Player)gvPlayers.SelectedItem).Team;
             }
+        }
+
+        private bool AutoCompleteCheck(string name, string search)
+        {
+            var array = name.ToLower().Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var str in array)
+            {
+                if (str.StartsWith(search.ToLower()))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool AutoCompleteCheck(string name, string search, string team)
+        {
+            //p.Name.ToLower().Contains(tbName.Text) && !lbName.Items.Contains(p.Team)
+            var array = name.ToLower().Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var str in array)
+            {
+                if (str.StartsWith(search.ToLower()) && !lbName.Items.Contains(team))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
