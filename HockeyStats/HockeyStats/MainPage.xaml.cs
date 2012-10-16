@@ -30,9 +30,10 @@ namespace HockeyStats
         public MainPage()
         {
             this.InitializeComponent();
+            this.Teams = new ObservableCollection<Team>();
             this.Players = new ObservableCollection<Player>();
             this.Games = new ObservableCollection<Game>();
-            this.Teams = new ObservableCollection<Team>();
+            this.Games.CollectionChanged += (s, e) => CalculateStandings();
             this.pnlStats.Players = this.Players;
             this.pnlStats.Teams = this.Teams;
             this.pnlStandings.Games = this.Games;
@@ -94,47 +95,54 @@ namespace HockeyStats
                 }
 
                 CsvSerializer csv = new CsvSerializer();
-                var games = csv.Deserialize<Game>(gameText);
-                var teams = csv.Deserialize<Team>(teamText);
-                var players = csv.Deserialize<Player>(playerText);
-
-                Dictionary<int, Team> teamsById = new Dictionary<int, Team>();
-
-                foreach(Team team in teams)
-                {
-                    teamsById.Add(team.Number, team);
-                }
-
-                foreach(Game game in games)
-                {
-                    teamsById[game.Home].GoalsScored += game.HomeScore;
-                    teamsById[game.Home].GoalsAllowed += game.VisitorScore;
-
-                    teamsById[game.Visitor].GoalsAllowed += game.HomeScore;
-                    teamsById[game.Visitor].GoalsScored += game.VisitorScore;
-
-                    if (game.HomeScore > game.VisitorScore)
-                    {
-                        teamsById[game.Home].Wins += 1;
-                        teamsById[game.Visitor].Losses += 1;
-                    }
-                    else if (game.VisitorScore > game.HomeScore)
-                    {
-                        teamsById[game.Home].Losses += 1;
-                        teamsById[game.Visitor].Wins += 1;
-                    }
-                    else
-                    {
-                        teamsById[game.Home].Ties += 1;
-                        teamsById[game.Visitor].Ties += 1;
-                    }
-                }
-
-                pnlStandings.Teams.AddRange(teams);
-                pnlStats.Players.AddRange(players);
-                pnlStandings.Games.AddRange(games);
+                this.Teams.AddRange(csv.Deserialize<Team>(teamText));
+                this.Players.AddRange(csv.Deserialize<Player>(playerText));
+                this.Games.AddRange(csv.Deserialize<Game>(gameText));
             }
+
             pnlStats.loadLists();
+        }
+
+        void CalculateStandings()
+        {
+            foreach (var team in Teams)
+            {
+                team.Wins = 0;
+                team.Losses = 0;
+                team.Ties = 0;
+                team.GoalsAllowed = 0;
+                team.GoalsScored = 0;
+            }
+
+            foreach (Game game in this.Games)
+            {
+                var home = Teams.First(t => t.Number == game.Home);
+                var visitor = Teams.First(t => t.Number == game.Visitor);
+
+                home.GoalsScored += game.HomeScore;
+                home.GoalsAllowed += game.VisitorScore;
+
+                visitor.GoalsAllowed += game.HomeScore;
+                visitor.GoalsScored += game.VisitorScore;
+
+                if (game.HomeScore > game.VisitorScore)
+                {
+                    home.Wins += 1;
+                    visitor.Losses += 1;
+                }
+                else if (game.VisitorScore > game.HomeScore)
+                {
+                    home.Losses += 1;
+                    visitor.Wins += 1;
+                }
+                else
+                {
+                    home.Ties += 1;
+                    visitor.Ties += 1;
+                }
+            }
+
+            this.pnlStandings.RefreshStats();
         }
 
         async void btnSave_Click(object sender, RoutedEventArgs e)

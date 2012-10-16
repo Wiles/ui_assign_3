@@ -23,15 +23,84 @@ namespace HockeyStats
         [CsvColumn(3)]
         public string Color { get; set; }
 
-        public int Wins { get; set; }
+        private int wins { get; set; }
+        public int Wins
+        {
+            get
+            {
+                return wins;
+            }
+            set
+            {
+                wins = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("Points");
+                NotifyPropertyChanged("AverageGoalsAllowedPerGame");
+            }
+        }
 
-        public int Losses { get; set; }
+        private int losses { get; set; }
+        public int Losses
+        {
+            get
+            {
+                return losses;
+            }
+            set
+            {
+                losses = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("AverageGoalsAllowedPerGame");
+            }
+        }
 
-        public int Ties { get; set; }
+        private int ties { get; set; }
+        public int Ties
+        {
+            get
+            {
+                return ties;
+            }
+            set
+            {
+                ties = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("Points");
+                NotifyPropertyChanged("AverageGoalsAllowedPerGame");
+            }
+        }
 
-        public int GoalsScored { get; set; }
+        private int goalsScored { get; set; }
+        public int GoalsScored
+        {
+            get
+            {
+                return goalsScored;
+            }
+            set
+            {
+                goalsScored = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("AverageGoalsScoredPerGame");
+                NotifyPropertyChanged("DiffString");
+            }
+        }
 
-        public int GoalsAllowed { get; set; }
+        private int goalsAllowed { get; set; }
+        public int GoalsAllowed
+        {
+            get
+            {
+                return goalsAllowed;
+            }
+            set
+            {
+                goalsAllowed = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("AverageGoalsScoredPerGame");
+                NotifyPropertyChanged("DiffString");
+            }
+        }
 
         public int[] aRecord { get; set; }
 

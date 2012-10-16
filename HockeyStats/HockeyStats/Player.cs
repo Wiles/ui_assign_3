@@ -44,9 +44,10 @@ namespace HockeyStats
 
         public Player()
         {
+            this.Id = "P";
         }
 
-        public Player(String name, String team, Int32 goals, Int32 assists, Int32 penaltyMinutes)
+        public Player(String name, String team, Int32 goals, Int32 assists, Int32 penaltyMinutes) : this()
         {
             this.Name = name;
             this.Team = team;

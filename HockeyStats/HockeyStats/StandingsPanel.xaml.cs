@@ -68,5 +68,12 @@ namespace HockeyStats
             tbName.Text = string.Empty;
             tbColor.Text = string.Empty;
         }
+
+        public void RefreshStats()
+        {
+            var list = this.Teams.ToList();
+            this.Teams.Clear();
+            this.Teams.AddRange(list);
+        }
     }
 }
