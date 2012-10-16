@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -68,7 +69,7 @@ namespace HockeyStats
 
         private ObservableCollection<GameModel> models { get; set; }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        async private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             var game = new Game();
             var home = cbTeam1.SelectedItem as Team;
@@ -76,11 +77,31 @@ namespace HockeyStats
             int homeScore;
             int visitorScore;
 
-            if (!dtpGame.Value.HasValue
-                || home == visitor
-                || !int.TryParse(tbPoints1.Text, out homeScore)
-                || !int.TryParse(tbPoints2.Text, out visitorScore))
+            if(!dtpGame.Value.HasValue)
             {
+                var dialog = new MessageDialog("Please enter a date.");
+                await dialog.ShowAsync();
+                return;
+            }
+            
+            if(home == visitor)
+            {
+                var dialog = new MessageDialog("A team cannot play itself.");
+                await dialog.ShowAsync();
+                return;
+            }
+
+            if(!int.TryParse(tbPoints1.Text, out homeScore))
+            {
+                var dialog = new MessageDialog("Please enter a valid home score.");
+                await dialog.ShowAsync();
+                return;
+            }
+
+            if(!int.TryParse(tbPoints2.Text, out visitorScore))
+            {
+                var dialog = new MessageDialog("Please enter a valid visitor score.");
+                await dialog.ShowAsync();
                 return;
             }
 
