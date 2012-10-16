@@ -192,35 +192,138 @@ namespace HockeyStats
 
         async private void btnExport_Click(object sender, RoutedEventArgs e)
         {
-            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
-            savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            savePicker.FileTypeChoices.Add("Hyper Text Markup Language", new List<string>() { ".html" });
-
-            var file = await savePicker.PickSaveFileAsync();
-            if (file != null)
+            if (pnlStats.Visibility == Windows.UI.Xaml.Visibility.Visible)
             {
-                var thing = await file.OpenStreamForWriteAsync();
-                using (StreamWriter sw = new StreamWriter(thing.AsOutputStream().AsStreamForWrite()))
+                var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+                savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+                savePicker.FileTypeChoices.Add("Hyper Text Markup Language", new List<string>() { ".html" });
+
+                var file = await savePicker.PickSaveFileAsync();
+                if (file != null)
                 {
-                    StringBuilder sb = new StringBuilder(
-@"<table>
+                    var thing = await file.OpenStreamForWriteAsync();
+                    using (StreamWriter sw = new StreamWriter(thing.AsOutputStream().AsStreamForWrite()))
+                    {
+                        StringBuilder sb = new StringBuilder(
+    @"<table>
 <tbody>
 <tr><th><span><span><b>Regular Season Individual Stats</b></span></span></th></tr><tr style=""background-color:#D49E09""><th style=""width: 200px"">Name</th><th style=""width: 80px"">Team</th><th style=""text-align: right; width: 40px"">G</th><th style=""text-align: right; width: 40px"">A</th><th style=""text-align: right; width: 40px"">Pts</th><th style=""text-align: right; width: 40px"">PM</th></tr>
 ");
-                    foreach (var p in pnlStats.Players)
-                    {
-                        sb.AppendLine(p.ToHtmlRow());
-                    }
-                    sb.AppendLine("</tbody>");
-                    sb.AppendLine("</table>");
+                        foreach (var p in pnlStats.Players)
+                        {
+                            sb.AppendLine(p.ToHtmlRow());
+                        }
+                        sb.AppendLine("</tbody>");
+                        sb.AppendLine("</table>");
 
-                    sw.Write(sb.ToString());
+                        sw.Write(sb.ToString());
+                    }
+                }
+                else
+                {
+                    //TODO make this not crappy.
+                    //                throw new Exception();
                 }
             }
             else
             {
-                //TODO make this not crappy.
-                //                throw new Exception();
+                var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+                savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+                savePicker.FileTypeChoices.Add("Hyper Text Markup Language", new List<string>() { ".html" });
+
+                var file = await savePicker.PickSaveFileAsync();
+
+                if (file != null)
+                {
+                    var thing = await file.OpenStreamForWriteAsync();
+
+                    using (StreamWriter sw = new StreamWriter(thing.AsOutputStream().AsStreamForWrite()))
+                    {
+                        StringBuilder sb = new StringBuilder(
+@"<table>
+    <tbody>
+        <tr>
+            <th>
+                <span>
+                    <span>
+                        <b>Regular Season Standings</b>
+                    </span>
+                </span>
+            </th>
+        </tr>
+        <tr style=""background-color: #D49E09"">
+            <th style=""width: 200px"">Team</th>
+            <th style=""text-align: right; width: 30px"">G</th>
+            <th style=""text-align: right; width: 30px"">W</th>
+            <th style=""text-align: right; width: 30px"">L</th>
+            <th style=""text-align: right; width: 30px"">T</th>
+            <th style=""text-align: right; width: 30px"">PT</th>
+            <th style=""text-align: right; width: 30px"">GF</th>
+            <th style=""text-align: right; width: 30px"">GA</th>
+            <th style=""text-align: right; width: 50px"">GAS</th>
+        </tr>");
+                        int i = 0;
+
+
+
+                        foreach (var p in pnlStandings.Teams.OrderByDescending(t => t.AverageGoalsScoredPerGame).OrderByDescending(t => t.Points))
+                        {
+                            if (i % 2 == 1)
+                            {
+                                sb.AppendLine(p.ToHtmlRow("#F4BE29"));
+                            }
+                            else
+                            {
+                                sb.AppendLine(p.ToHtmlRow(null));
+                            }
+                            i++;
+                        }
+                        sb.AppendLine("</tbody>");
+                        sb.AppendLine("</table>");
+                        sb.AppendLine("<p></p>");
+                        sb.Append(
+@"<table>
+    <tbody>
+        <tr>
+            <th>
+                <span>
+                    <span>
+                        <b>Latest Game Results</b>
+                    </span>
+                </span>
+            </th>
+        </tr>
+        <tr style=""background-color:#D49E09"">
+            <th style=""width: 180px"">Home</th>
+            <th style=""text-align: right; width: 30px""/>
+            <th style=""width: 30px""/>
+            <th style=""width: 180px"">Visitor</th>
+            <th style=""text-align: right; width: 30px""/>
+        </tr>");
+                        i = 0;
+                        foreach (var p in pnlStandings.Games.OrderByDescending(t => t.Date).Take((pnlStandings.Teams.Count + 1) /2))
+                        {
+                            if (i % 2 == 1)
+                            {
+                                sb.AppendLine(p.ToHtmlRow("#F4BE29", pnlStandings.Teams));
+                            }
+                            else
+                            {
+                                sb.AppendLine(p.ToHtmlRow(null, pnlStandings.Teams));
+                            }
+                            i++;
+                        }
+                        sb.AppendLine("</tbody>");
+                        sb.AppendLine("</table>");
+                        
+                        sw.Write(sb.ToString());
+                    }
+                }
+                else
+                {
+                    //TODO make this not crappy.
+                    //                throw new Exception();
+                }
             }
         }
 

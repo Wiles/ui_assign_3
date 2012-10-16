@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI;
 
 namespace HockeyStats
 {
@@ -56,6 +57,31 @@ namespace HockeyStats
                 return (GoalsScored + GoalsAllowed > 0) ? (double)GoalsScored / (double)(GoalsScored + GoalsAllowed) : 0;
             }
         }
+
+        public string DiffString 
+        {
+            get
+            {
+                return AverageGoalsScoredPerGame.ToString("0.000");
+            }
+        }
+
+        public string ToHtmlRow(String color)
+        {
+                        return String.Format(
+@"<tr{0}>
+<td>{1}</td>
+<td style=""text-align: right"">{2}</td>
+<td style=""text-align: right"">{3}</td>
+<td style=""text-align: right"">{4}</td>
+<td style=""text-align: right"">{5}</td>
+<td style=""text-align: right""><b>{6}</b></td>
+<td style=""text-align: right"">{7}</td>
+<td style=""text-align: right"">{8}</td>
+<td style=""text-align: right"">{9}</td>
+</tr>", (color != null)?" style =\"background-color:" + color +"\"":"", Name, Games, Wins, Losses, Ties, Points, GoalsScored, GoalsAllowed, DiffString);
+        }
+
 
         public int Points
         {
