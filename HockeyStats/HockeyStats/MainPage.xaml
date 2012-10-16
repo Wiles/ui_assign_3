@@ -12,23 +12,36 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Margin="0,5,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Button Grid.Row="0" x:Name="btnStats" Content="Statistics" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0,5,5" Click="btnStats_Click_1" Width="{Binding ElementName=btnStats, Path=ActualHeight}"/>
-            <Button Grid.Row="1" x:Name="btnStandings" Content="Standings" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0,5,5" Click="btnStandings_Click_1" Width="{Binding ElementName=btnStandings, Path=ActualHeight}"/>
-            <Button Grid.Row="2" x:Name="btnOpen" Content="Open" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0,5,5" Click="btnOpen_Click" Width="{Binding ElementName=btnOpen, Path=ActualHeight}"/>
-            <Button Grid.Row="3" x:Name="btnSave" Content="Save" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0,5,5" Click="btnSave_Click" Width="{Binding ElementName=btnSave, Path=ActualHeight}"/>
-            <Button Grid.Row="4" x:Name="btnExport" Content="Export" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0,5,5" Click="btnExport_Click" Width="{Binding ElementName=btnExport, Path=ActualHeight}"/>
-            <Button Grid.Row="5" x:Name="btnNews" Content="News Text" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0,5,5" Click="btnNews_Click_1"  Width="{Binding ElementName=btnNews, Path=ActualHeight}"/>
-        </Grid>
+        
         <local:StatisticsPanel Grid.Column="1" x:Name="pnlStats" Margin="12,12,12,12" />
         <local:StandingsPanel Grid.Column="1" Visibility="Collapsed" x:Name="pnlStandings" Margin="12,12,12,12" />
     </Grid>
+    <Page.TopAppBar>
+        <AppBar>
+            <Grid HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" x:Name="btnStats" Content="Statistics" Margin="25,5,25,5" Click="btnStats_Click_1" Width="100" Height="100"/>
+                <Button Grid.Column="1" x:Name="btnStandings" Content="Standings" Margin="25,5,25,5" Click="btnStandings_Click_1" Width="100" Height="100"/>
+            </Grid>
+        </AppBar>
+    </Page.TopAppBar>
+    <Page.BottomAppBar>
+        <AppBar>
+            <Grid HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" x:Name="btnOpen" Content="Open" Margin="25,5,25,5" Click="btnOpen_Click" Width="100" Height="100"/>
+                <Button Grid.Column="1" x:Name="btnSave" Content="Save" Margin="25,5,25,5" Click="btnSave_Click" Width="100" Height="100"/>
+                <Button Grid.Column="2" x:Name="btnExport" Content="Export" Margin="25,5,25,5" Click="btnExport_Click" Width="100" Height="100"/>
+                <Button Grid.Column="3" x:Name="btnNews" Content="News Text" Margin="25,5,25,5" Click="btnNews_Click_1" Width="100" Height="100"/>
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
 </Page>
