@@ -59,62 +59,68 @@ namespace HockeyStats
         
         async private void btnOpen_Click(object sender, RoutedEventArgs e)
         {
-
-
-            var dialog = new MessageDialog("All unsaved changes will be lost.");
-            UICommand cancel = new UICommand("Cancel");
-            dialog.Commands.Add(new UICommand("Continue"));
-            dialog.Commands.Add(cancel);
-            if (await dialog.ShowAsync() == cancel)
+            try
             {
-                return;
-            }
-
-            var openPicker = new Windows.Storage.Pickers.FileOpenPicker();
-            openPicker.FileTypeFilter.Add(".csv");
-
-            var file = await openPicker.PickSingleFileAsync();
-            if (file != null)
-            {
-                var thing = await file.OpenSequentialReadAsync();
-
-                var gameText = string.Empty;
-                var teamText = string.Empty;
-                var playerText = string.Empty;
-
-                using (StreamReader sr = new StreamReader(thing.AsStreamForRead()))
+                var dialog = new MessageDialog("All unsaved changes will be lost.");
+                UICommand cancel = new UICommand("Cancel");
+                dialog.Commands.Add(new UICommand("Continue"));
+                dialog.Commands.Add(cancel);
+                if (await dialog.ShowAsync() == cancel)
                 {
-                    string line;
-                    while ((line = sr.ReadLine()) != null)
+                    return;
+                }
+
+                var openPicker = new Windows.Storage.Pickers.FileOpenPicker();
+                openPicker.FileTypeFilter.Add(".csv");
+
+                var file = await openPicker.PickSingleFileAsync();
+                if (file != null)
+                {
+                    var thing = await file.OpenSequentialReadAsync();
+
+                    var gameText = string.Empty;
+                    var teamText = string.Empty;
+                    var playerText = string.Empty;
+
+                    using (StreamReader sr = new StreamReader(thing.AsStreamForRead()))
                     {
-                        if (line.Length > 0)
+                        string line;
+                        while ((line = sr.ReadLine()) != null)
                         {
-                            if (line[0] == 'T')
+                            if (line.Length > 0)
                             {
-                                teamText += line + Environment.NewLine;
-                            }
-                            else if (line[0] == 'G')
-                            {
-                                gameText += line + Environment.NewLine;
-                            }
-                            else if (line[0] == 'P')
-                            {
-                                playerText += line + Environment.NewLine;
+                                if (line[0] == 'T')
+                                {
+                                    teamText += line + Environment.NewLine;
+                                }
+                                else if (line[0] == 'G')
+                                {
+                                    gameText += line + Environment.NewLine;
+                                }
+                                else if (line[0] == 'P')
+                                {
+                                    playerText += line + Environment.NewLine;
+                                }
                             }
                         }
                     }
+
+                    CsvSerializer csv = new CsvSerializer();
+                    Teams.Clear();
+                    Players.Clear();
+                    Games.Clear();
+                    this.Teams.AddRange(csv.Deserialize<Team>(teamText));
+                    this.Players.AddRange(csv.Deserialize<Player>(playerText));
+                    this.Games.AddRange(csv.Deserialize<Game>(gameText));
                 }
 
-                CsvSerializer csv = new CsvSerializer();
-                Teams.Clear();
-                Players.Clear();
-                Games.Clear();
-                this.Teams.AddRange(csv.Deserialize<Team>(teamText));
-                this.Players.AddRange(csv.Deserialize<Player>(playerText));
-                this.Games.AddRange(csv.Deserialize<Game>(gameText));
+                pnlStats.loadLists();
             }
-
-            pnlStats.loadLists();
+            catch
+            {
+                var dialog = new MessageDialog("Error occured opening file.");
+                dialog.ShowAsync();
+            }
         }
 
         void CalculateStandings()
@@ -161,21 +167,30 @@ namespace HockeyStats
 
         async void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
-            savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            savePicker.FileTypeChoices.Add("Comma Separated Values", new List<string>() { ".csv" });
-
-            var file = await savePicker.PickSaveFileAsync();
-            if (file != null)
+            try
             {
-                var thing = await file.OpenStreamForWriteAsync();
-                using (StreamWriter sw = new StreamWriter(thing.AsOutputStream().AsStreamForWrite()))
+
+                var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+                savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+                savePicker.FileTypeChoices.Add("Comma Separated Values", new List<string>() { ".csv" });
+
+                var file = await savePicker.PickSaveFileAsync();
+                if (file != null)
                 {
-                    CsvSerializer csv = new CsvSerializer();
-                    sw.Write(csv.Serialize(pnlStandings.Teams));
-                    sw.Write(csv.Serialize(pnlStandings.Games));
-                    sw.Write(csv.Serialize(pnlStats.Players));
+                    var thing = await file.OpenStreamForWriteAsync();
+                    using (StreamWriter sw = new StreamWriter(thing.AsOutputStream().AsStreamForWrite()))
+                    {
+                        CsvSerializer csv = new CsvSerializer();
+                        sw.Write(csv.Serialize(pnlStandings.Teams));
+                        sw.Write(csv.Serialize(pnlStandings.Games));
+                        sw.Write(csv.Serialize(pnlStats.Players));
+                    }
                 }
+            }
+            catch
+            {
+                var dialog = new MessageDialog("Error occured saving file.");
+                dialog.ShowAsync();
             }
         }
 
@@ -299,21 +314,22 @@ namespace HockeyStats
 
         async private void btnExportStandings_Click(object sender, RoutedEventArgs e)
         {
-
-            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
-            savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            savePicker.FileTypeChoices.Add("Hyper Text Markup Language", new List<string>() { ".html" });
-
-            var file = await savePicker.PickSaveFileAsync();
-
-            if (file != null)
+            try
             {
-                var thing = await file.OpenStreamForWriteAsync();
+                var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+                savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+                savePicker.FileTypeChoices.Add("Hyper Text Markup Language", new List<string>() { ".html" });
 
-                using (StreamWriter sw = new StreamWriter(thing.AsOutputStream().AsStreamForWrite()))
+                var file = await savePicker.PickSaveFileAsync();
+
+                if (file != null)
                 {
-                    StringBuilder sb = new StringBuilder(
-@"<table>
+                    var thing = await file.OpenStreamForWriteAsync();
+
+                    using (StreamWriter sw = new StreamWriter(thing.AsOutputStream().AsStreamForWrite()))
+                    {
+                        StringBuilder sb = new StringBuilder(
+    @"<table>
     <tbody>
         <tr>
             <th>
@@ -335,27 +351,27 @@ namespace HockeyStats
             <th style=""text-align: right; width: 30px"">GA</th>
             <th style=""text-align: right; width: 50px"">GAS</th>
         </tr>");
-                    int i = 0;
+                        int i = 0;
 
 
 
-                    foreach (var p in pnlStandings.Teams.OrderByDescending(t => t.AverageGoalsScoredPerGame).OrderByDescending(t => t.Points))
-                    {
-                        if (i % 2 == 1)
+                        foreach (var p in pnlStandings.Teams.OrderByDescending(t => t.AverageGoalsScoredPerGame).OrderByDescending(t => t.Points))
                         {
-                            sb.AppendLine(p.ToHtmlRow("#F4BE29"));
+                            if (i % 2 == 1)
+                            {
+                                sb.AppendLine(p.ToHtmlRow("#F4BE29"));
+                            }
+                            else
+                            {
+                                sb.AppendLine(p.ToHtmlRow(null));
+                            }
+                            i++;
                         }
-                        else
-                        {
-                            sb.AppendLine(p.ToHtmlRow(null));
-                        }
-                        i++;
-                    }
-                    sb.AppendLine("</tbody>");
-                    sb.AppendLine("</table>");
-                    sb.AppendLine("<p></p>");
-                    sb.Append(
-@"<table>
+                        sb.AppendLine("</tbody>");
+                        sb.AppendLine("</table>");
+                        sb.AppendLine("<p></p>");
+                        sb.Append(
+    @"<table>
     <tbody>
         <tr>
             <th>
@@ -373,62 +389,76 @@ namespace HockeyStats
             <th style=""width: 180px"">Visitor</th>
             <th style=""text-align: right; width: 30px""/>
         </tr>");
-                    i = 0;
-                    foreach (var p in pnlStandings.Games.OrderByDescending(t => t.Date).Take((pnlStandings.Teams.Count + 1) / 2))
-                    {
-                        if (i % 2 == 1)
+                        i = 0;
+                        foreach (var p in pnlStandings.Games.OrderByDescending(t => t.Date).Take((pnlStandings.Teams.Count + 1) / 2))
                         {
-                            sb.AppendLine(p.ToHtmlRow("#F4BE29", pnlStandings.Teams));
+                            if (i % 2 == 1)
+                            {
+                                sb.AppendLine(p.ToHtmlRow("#F4BE29", pnlStandings.Teams));
+                            }
+                            else
+                            {
+                                sb.AppendLine(p.ToHtmlRow(null, pnlStandings.Teams));
+                            }
+                            i++;
                         }
-                        else
-                        {
-                            sb.AppendLine(p.ToHtmlRow(null, pnlStandings.Teams));
-                        }
-                        i++;
-                    }
-                    sb.AppendLine("</tbody>");
-                    sb.AppendLine("</table>");
+                        sb.AppendLine("</tbody>");
+                        sb.AppendLine("</table>");
 
-                    sw.Write(sb.ToString());
+                        sw.Write(sb.ToString());
+                    }
                 }
+            }
+            catch
+            {
+                var dialog = new MessageDialog("Error occured exporting statistics.");
+                dialog.ShowAsync();
             }
         }
 
         async private void btnExportStatistics_Click(object sender, RoutedEventArgs e)
         {
-            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
-            savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            savePicker.FileTypeChoices.Add("Hyper Text Markup Language", new List<string>() { ".html" });
-
-            var file = await savePicker.PickSaveFileAsync();
-            if (file != null)
+            try
             {
-                var thing = await file.OpenStreamForWriteAsync();
-                using (StreamWriter sw = new StreamWriter(thing.AsOutputStream().AsStreamForWrite()))
+                var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+                savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+                savePicker.FileTypeChoices.Add("Hyper Text Markup Language", new List<string>() { ".html" });
+
+                var file = await savePicker.PickSaveFileAsync();
+                if (file != null)
                 {
-                    StringBuilder sb = new StringBuilder(
-@"<table>
+                    var thing = await file.OpenStreamForWriteAsync();
+                    using (StreamWriter sw = new StreamWriter(thing.AsOutputStream().AsStreamForWrite()))
+                    {
+                        StringBuilder sb = new StringBuilder(
+    @"<table>
 <tbody>
 <tr><th><span><span><b>Regular Season Individual Stats</b></span></span></th></tr><tr style=""background-color:#D49E09""><th style=""width: 200px"">Name</th><th style=""width: 80px"">Team</th><th style=""text-align: right; width: 40px"">G</th><th style=""text-align: right; width: 40px"">A</th><th style=""text-align: right; width: 40px"">Pts</th><th style=""text-align: right; width: 40px"">PM</th></tr>
 ");
-                    int i = 0;
-                    foreach (var p in pnlStats.Players)
-                    {
-                        if (i % 2 == 1)
+                        int i = 0;
+                        foreach (var p in pnlStats.Players)
                         {
-                            sb.AppendLine(p.ToHtmlRow("#F4BE29"));
+                            if (i % 2 == 1)
+                            {
+                                sb.AppendLine(p.ToHtmlRow("#F4BE29"));
+                            }
+                            else
+                            {
+                                sb.AppendLine(p.ToHtmlRow(null));
+                            }
+                            i++;
                         }
-                        else
-                        {
-                            sb.AppendLine(p.ToHtmlRow(null));
-                        }
-                        i++;
-                    }
-                    sb.AppendLine("</tbody>");
-                    sb.AppendLine("</table>");
+                        sb.AppendLine("</tbody>");
+                        sb.AppendLine("</table>");
 
-                    sw.Write(sb.ToString());
+                        sw.Write(sb.ToString());
+                    }
                 }
+            }
+            catch
+            {
+                var dialog = new MessageDialog("Error occured exporting standins.");
+                dialog.ShowAsync();
             }
         }
     }
