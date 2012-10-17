@@ -59,6 +59,8 @@ namespace HockeyStats
         
         async private void btnOpen_Click(object sender, RoutedEventArgs e)
         {
+            this.AppBars(false);
+
             try
             {
                 var dialog = new MessageDialog("All unsaved changes will be lost.");
@@ -167,6 +169,8 @@ namespace HockeyStats
 
         async void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            this.AppBars(false);
+
             try
             {
 
@@ -205,6 +209,8 @@ namespace HockeyStats
             btnStats.FontStyle = Windows.UI.Text.FontStyle.Italic;
             btnStandings.FontStyle = Windows.UI.Text.FontStyle.Normal;
             btnGames.FontStyle = Windows.UI.Text.FontStyle.Normal;
+
+            this.AppBars(false);
         }
 
         private void btnStandings_Click_1(object sender, RoutedEventArgs e)
@@ -217,6 +223,8 @@ namespace HockeyStats
             btnStats.FontStyle = Windows.UI.Text.FontStyle.Normal;
             btnStandings.FontStyle = Windows.UI.Text.FontStyle.Italic;
             btnGames.FontStyle = Windows.UI.Text.FontStyle.Normal;
+
+            this.AppBars(false);
         }
 
         private void btnGames_Click_1(object sender, RoutedEventArgs e)
@@ -229,10 +237,19 @@ namespace HockeyStats
             btnStats.FontStyle = Windows.UI.Text.FontStyle.Normal;
             btnStandings.FontStyle = Windows.UI.Text.FontStyle.Normal;
             btnGames.FontStyle = Windows.UI.Text.FontStyle.Italic;
+
+            this.AppBars(false);
+        }
+
+        private void AppBars(bool show)
+        {
+            this.BottomAppBar.IsOpen = show;
+            this.TopAppBar.IsOpen = show;
         }
 
         async private void btnNews_Click_1(object sender, RoutedEventArgs e)
         {
+            this.AppBars(false);
             Dictionary<string, string> dGoals = new Dictionary<string, string>();
             Dictionary<string, string> dAssists = new Dictionary<string, string>();
 
@@ -314,6 +331,8 @@ namespace HockeyStats
 
         async private void btnExportStandings_Click(object sender, RoutedEventArgs e)
         {
+            this.AppBars(false);
+
             try
             {
                 var savePicker = new Windows.Storage.Pickers.FileSavePicker();
@@ -418,6 +437,8 @@ namespace HockeyStats
 
         async private void btnExportStatistics_Click(object sender, RoutedEventArgs e)
         {
+            this.AppBars(false);
+
             try
             {
                 var savePicker = new Windows.Storage.Pickers.FileSavePicker();
