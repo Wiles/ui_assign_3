@@ -83,7 +83,14 @@ namespace HockeyStats
                 await dialog.ShowAsync();
                 return;
             }
-            
+
+            if (home == null || visitor == null)
+            {
+                var dialog = new MessageDialog("Two teams must be selected.");
+                await dialog.ShowAsync();
+                return;
+            }
+
             if(home == visitor)
             {
                 var dialog = new MessageDialog("A team cannot play itself.");
