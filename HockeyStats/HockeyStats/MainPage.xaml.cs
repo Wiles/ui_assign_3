@@ -322,7 +322,14 @@ namespace HockeyStats
             }
             else
             {
-                message = "No player information available.";
+                if (this.Players.Count == 0)
+                {
+                    message = "No player information available.";
+                }
+                else
+                {
+                    message = "No session information available.";
+                }
             }
 
             var dialog = new MessageDialog(message);
