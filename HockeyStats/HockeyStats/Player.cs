@@ -42,6 +42,14 @@ namespace HockeyStats
             }
         }
 
+        public int SessionPoints
+        {
+            get
+            {
+                return this.SessionGoals + this.SessionAssists;
+            }
+        }
+
         public Player()
         {
             this.Id = "P";

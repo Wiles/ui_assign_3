@@ -39,23 +39,7 @@ namespace HockeyStats
                 gvPlayers.ItemsSource = players;
                 players.CollectionChanged += (s, e) =>
                     {
-                        var goals = 0;
-                        var assists = 0;
-                        var penalty = 0;
-                        var points = 0;
-
-                        foreach (var p in this.Players)
-                        {
-                            goals += p.Goals;
-                            assists += p.Assists;
-                            penalty += p.PenaltyMinutes;
-                            points += p.Points;
-                        }
-
-                        lblGoals.Text = goals.ToString();
-                        lblAssists.Text = assists.ToString();
-                        lblPenalty.Text = penalty.ToString();
-                        lblPoints.Text = points.ToString();
+                        UpdateTotals();
                     };
             }
         }
@@ -72,6 +56,39 @@ namespace HockeyStats
                 teams = value;
             }
         }
+
+        private void UpdateTotals()
+        {
+            var goals = 0;
+            var assists = 0;
+            var penalty = 0;
+            var points = 0;
+            var sessionGoals = 0;
+            var sessionAssists = 0;
+            var sessionPenalty = 0;
+            var sessionPoints = 0;
+
+            foreach (var p in this.Players)
+            {
+                goals += p.Goals;
+                assists += p.Assists;
+                penalty += p.PenaltyMinutes;
+                points += p.Points;
+                sessionGoals += p.SessionGoals;
+                sessionAssists += p.SessionAssists;
+                sessionPenalty += p.SessionPenaltyMinutes;
+                sessionPoints += p.SessionPoints;
+            }
+
+            lblGoals.Text = goals.ToString();
+            lblAssists.Text = assists.ToString();
+            lblPenalty.Text = penalty.ToString();
+            lblPoints.Text = points.ToString();
+            lblSessionGoals.Text = sessionGoals.ToString();
+            lblSessionAssists.Text = sessionAssists.ToString();
+            lblSessionPenalty.Text = sessionPenalty.ToString();
+            lblSessionPoints.Text = sessionPoints.ToString();
+        }
         
         async private void btnAdd_Click_1(object sender, RoutedEventArgs e)
         {
@@ -82,13 +99,6 @@ namespace HockeyStats
             if (string.IsNullOrEmpty(tbName.Text))
             {
                 var dialog = new MessageDialog("Each player must have a name.");
-                await dialog.ShowAsync();
-                return;
-            }
-
-            if( Players.Select(t => t).Where(t => t.Name.Equals(tbName.Text)).Count() != 0)
-            {
-                var dialog = new MessageDialog("A player with that name already exists.");
                 await dialog.ShowAsync();
                 return;
             }
@@ -135,6 +145,7 @@ namespace HockeyStats
                 player.AddAssists(assists);
                 player.AddPenaltyMinutes(penalty);
                 gvPlayers.ItemsSource = Players;
+                UpdateTotals();
             }
             cbTeam.SelectedIndex = -1;
             tbName.Text = String.Empty;
