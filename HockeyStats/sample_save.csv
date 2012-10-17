@@ -1,0 +1,26 @@
+T,1,Barry Cullen,Blue
+T,2,Scotia Bank,Green
+T,3,Cooperators,White
+T,4,High Five Photo,Gold
+T,5,Lantic Sugar,Red
+T,6,Nu Era Logistics,Maroon
+T,7,Pizza Pizza,Orange
+T,8,Champion's Choice,Silver
+T,9,Cityview,Teal
+T,10,Storm,Black
+G,2011-10-15T00:00:00,10,2,1,6
+G,2011-10-15T00:00:00,4,1,7,5
+G,2011-10-15T00:00:00,3,6,8,2
+G,2011-10-15T00:00:00,2,2,9,3
+G,2011-10-15T00:00:00,5,1,6,2
+G,2011-10-22T00:00:00,9,1,1,2
+G,2011-10-22T00:00:00,4,4,5,4
+G,2011-10-22T00:00:00,10,3,8,4
+G,2011-10-22T00:00:00,2,0,7,7
+G,2011-10-22T00:00:00,3,3,6,1
+G,2012-10-16T17:32:04,6,12,5,500
+P,John,Black,5,4,3
+P,Frank,Red,4,4,4
+P,Alice,Gold,3,3,3
+P,bob,Gold,2,2,2
+P,Jim,Red,1,1,1
